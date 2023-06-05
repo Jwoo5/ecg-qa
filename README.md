@@ -14,13 +14,13 @@ ecgqa
 ├── train_ecgs.csv
 ├── valid_ecgs.csv
 ├── paraphrased
-│    ├─test.json
-│    ├─train.json
-│    └─valid.json
+│    ├─ test.json
+│    ├─ train.json
+│    └─ valid.json
 └── template
-     ├─test.json
-     ├─train.json
-     └─valid.json
+     ├─ test.json
+     ├─ train.json
+     └─ valid.json
 ```
 * All the QA samples are saved in each .json file, where **paraphrased** directory indicates its questions are paraphrased and **template** directory indicates its questions are not.
 * Each json file contains a list of python dictionary where each key indicates:
@@ -44,7 +44,7 @@ ecgqa
         * `numeric_feature`
     * question: a question string
     * ecg_id: a list of ecg IDs of PTB-XL dataset. For comparison questions, it contains two corresponding ecg IDs. Otherwise, it has only one element.
-    * attribute: a list of strings indicating the relevant attributes with the question. We only provide this information for `verify` and `choose` question types.
+    * attribute: a list of strings indicating the relevant attributes with the question.
 * `answers_for_each_template.csv` provides the possible answer options for each template ID.
 * `answers.csv` provides the whole answer options over all the QA samples.
 * `*_ecgs.csv` indicate which ecg IDs of PTB-XL are included in each split.
@@ -68,3 +68,7 @@ You can easily open and read data by the following codelines.
     "attribute": ["non-diagnostic t abnormalities"]
 }
 ```
+
+## Experiments
+We implemented all the experiments in the [fairseq-signals](https://github.com/Jwoo5/fairseq-signals) repostiory.  
+To run the experiments, please follow the instructions from [here](https://github.com/Jwoo5/fairseq-signals/tree/master/fairseq_signals/data/ecg_text/preprocess) (See ECG-QA section).
