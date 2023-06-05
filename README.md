@@ -22,7 +22,7 @@ ecgqa
      ├─ train.json
      └─ valid.json
 ```
-* All the QA samples are saved in each .json file, where **paraphrased** directory indicates its questions are paraphrased and **template** directory indicates its questions are not.
+* All the QA samples are saved in each .json file, where **paraphrased** directory indicates its questions are paraphrased and **template** directory indicates its questions are not paraphrased.
 * Each json file contains a list of python dictionary where each key indicates:
     * template_id: a number indicating its template ID.
     * question_id: a number indicating its question ID. Different paraphrases from the same template question share the same question ID.
@@ -44,7 +44,7 @@ ecgqa
         * `numeric_feature`
     * question: a question string
     * ecg_id: a list of ecg IDs of PTB-XL dataset. For comparison questions, it contains two corresponding ecg IDs. Otherwise, it has only one element.
-    * attribute: a list of strings indicating the relevant attributes with the question.
+    * attribute: a list of strings indicating the relevant attributes with the question. For comparison questions, it is set to `None` because the primary purpose of this information is aimed to the upperbound experiments where we need to convert each Single QA sample into appropriate ECG classification format.
 * `answers_for_each_template.csv` provides the possible answer options for each template ID.
 * `answers.csv` provides the whole answer options over all the QA samples.
 * `*_ecgs.csv` indicate which ecg IDs of PTB-XL are included in each split.
