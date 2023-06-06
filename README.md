@@ -55,6 +55,8 @@ You can easily open and read data by the following codelines.
 >>> import json
 >>> with open("train.json", "r") as f:
 ...     data = json.load(f)
+>>> len(data)
+267539
 >>> data[0]
 {
     "template_id": 1,
@@ -62,7 +64,7 @@ You can easily open and read data by the following codelines.
     "sample_id": 0,
     "question_type": "single-verify",
     "attribute_type": "scp_code",
-    "question": "Is there evidence of non-diagnostic t abnormalities on this ECG?",
+    "question": "Is non-diagnostic t abnormalities detectable from this ECG?",
     "answer": ["yes"],
     "ecg_id": [12662],
     "attribute": ["non-diagnostic t abnormalities"]
