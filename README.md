@@ -4,7 +4,7 @@ ECG-QA is a public question answering dataset with ECG signals based on the exis
 This dataset includes various types of questions including questions involving with a single ECG and comparison questions between two different ECGs.
 Furthermore, it covers a wide range of attribute types to be inquired such as SCP Code (Symptoms in ECG), Noise, Stage of Infarction, Extra Systole, Heart Axis, Numeric Feature.
 
-## Dataset Description
+# Dataset Description
 The dataset is organized as follows:
 ```
 ecgqa
@@ -49,7 +49,7 @@ ecgqa
 * `answers.csv` provides the whole answer options over all the QA samples.
 * `*_ecgs.csv` indicate which ecg IDs of PTB-XL are included in each split.
 
-## Usage Notes
+# Usage Notes
 You can easily open and read data by the following codelines.
 ```python
 >>> import json
@@ -69,6 +69,70 @@ You can easily open and read data by the following codelines.
 }
 ```
 
-## Experiments
-We implemented all the experiments in the [fairseq-signals](https://github.com/Jwoo5/fairseq-signals) repostiory.  
-To run the experiments, please follow the instructions from [here](https://github.com/Jwoo5/fairseq-signals/tree/master/fairseq_signals/data/ecg_text/preprocess) (See ECG-QA section).
+# Quick Start
+We implemented all the experiment codes in the [fairseq-signals](https://github.com/Jwoo5/fairseq-signals) repostiory.  
+For detailed implementations, please refer to [here](https://github.com/Jwoo5/fairseq-signals/tree/master/fairseq_signals/data/ecg_text/preprocess) (See ECG-QA section).
+
+## Run QA Experiments
+1. Install [fairseq-signals](https://github.com/Jwoo5/fairseq-signals) following the guidelines.
+```shell script
+$ git clone https://github.com/Jwoo5/fairseq-signals
+$ cd fairseq-signals
+$ pip install --editable ./
+$ python setup.py build_ext --inplace
+$ pip install scipy wfdb pyarrow transformers
+```
+2. Pre-process ECG-QA dataset.
+```shell script
+$ python fairseq_signals/data/ecg_text/preprocess/preprocess_ecgqa.py \
+    --ptbxl-data-dir /path/to/ptbxl \
+    --dest /path/to/output \
+    --apply_paraphrase
+```
+Note that `--ptbxl-data-dir` should be set to the directory containing ptbxl ECG samples (i.e., `records500/...`).
+
+3. Run experiments.
+```shell script
+$ fairseq-hydra-train task.data=/path/to/output/paraphrased \
+    model.num_labels=103 \
+    --config-dir examples/scratch/ecg_question_answering/$model_name \
+    --config-name $model_config_name
+```
+$model_name: the name of the ECG-QA model (e.g., `ecg_transformer`)
+$model_config_name: the name of the configuration file (e.g., `base`)
+
+## Run Upperbound Experiments
+1. Install [fairseq-signals](https://github.com/Jwoo5/fairseq-signals) as the same with the above.
+2. Pre-process ECG-QA dataset to be compatible with upperbound experiments.
+```shell script
+$ python fairseq_signals/data/ecg_text/preprocess/preprocess_ecgqa_for_classification.py \
+    /path/to/ecgqa \
+    --ptbxl-data-dir /path/to/ptbxl \
+    --dest /path/to/output
+```
+3. For W2V+CMSC+RLM:
+```shell script
+$ fairseq-hydra-train task.data=/path/to/output \
+    model.num_labels=83 \
+    model.model_path=/path/to/checkpoint.pt \
+    --config-dir examples/w2v_cmsc/config/finetuning/ecg_transformer/grounding_classification \
+    --config-name base_total
+```
+Note that you need to pass the path to the pretrained model checkpoint through `model.model_path`.  
+To pre-train the model, refer to [here](../../../../examples/w2v_cmsc/README.md).
+
+4. For Resnet + Attention model:
+```shell script
+$ fairseq-hydra-train task.data=/path/to/output \
+    model.num_labels=83 \
+    --config-dir examples/scratch/ecg_classification/resnet \
+    --config-name nejedly2021_total
+```
+
+5. For SE-WRN model:
+```shell script
+$ fairseq-hydra-train task.data=/path/to/output \
+    model.num_labels=83 \
+    --config-dir examples/scratch/ecg_classification/resnet \
+    --config-name se_wrn_total
+```
