@@ -1,4 +1,4 @@
-# ECG-QA: a Comprehensive Multi-modal Question Answering Dataset Combined With Electrocardiogram
+# ECG-QA: a Comprehensive Question Answering Dataset Combined With Electrocardiogram
 
 ECG-QA is a public question answering dataset with ECG signals based on the existing ECG dataset, [PTB-XL](https://physionet.org/content/ptb-xl/1.0.3/).
 This dataset includes various types of questions including questions involving with a single ECG and comparison questions between two different ECGs.
