@@ -1,8 +1,14 @@
-# ECG-QA: a Comprehensive Question Answering Dataset Combined With Electrocardiogram
+# ECG-QA: A Comprehensive Question Answering Dataset Combined With Electrocardiogram
 
 ECG-QA is a public question answering dataset with ECG signals based on the existing ECG dataset, [PTB-XL](https://physionet.org/content/ptb-xl/1.0.3/).
 This dataset includes various types of questions including questions involving with a single ECG and comparison questions between two different ECGs.
-Furthermore, it covers a wide range of attribute types to be inquired such as SCP Code (Symptoms in ECG), Noise, Stage of Infarction, Extra Systole, Heart Axis, Numeric Feature.
+Furthermore, it covers a wide range of attribute types such as SCP Code (Symptoms in ECG), Noise, Stage of Infarction, Extra Systole, Heart Axis, and Numeric Feature.
+
+# Demonstrations
+We provide [Google Colab Notebook](https://colab.research.google.com/drive/1LLHwtdfAw1jQ26jdHvT2bzDLoWZRrRA-?usp=sharing) to facilitate the users to skim over the dataset.
+
+![sample1](figure/sample1.png)
+![sample2](figure/sample2.png)
 
 # Dataset Description
 The dataset is organized as follows:
@@ -14,15 +20,33 @@ ecgqa
 ├── train_ecgs.csv
 ├── valid_ecgs.csv
 ├── paraphrased
-│    ├─ test.json
-│    ├─ train.json
-│    └─ valid.json
+│   ├─ test
+│   │   ├─ 00000.json
+│   │   │  ...
+│   │   └─ 80000.json
+│   ├─ train
+│   │   ├─ 00000.json
+│   │   │  ...
+│   │   └─ 260000.json
+│   └─ valid
+│       ├─ 00000.json
+│       │  ...
+│       └─ 60000.json
 └── template
-     ├─ test.json
-     ├─ train.json
-     └─ valid.json
+    ├─ test
+    │   ├─ 00000.json
+    │   │  ...
+    │   └─ 80000.json
+    ├─ train
+    │   ├─ 00000.json
+    │   │  ...
+    │   └─ 260000.json
+    └─ valid
+        ├─ 00000.json
+        │  ...
+        └─ 60000.json
 ```
-* All the QA samples are saved in each .json file, where **paraphrased** directory indicates its questions are paraphrased and **template** directory indicates its questions are not paraphrased.
+* All the QA samples are stored in each .json file, where **paraphrased** directory indicates its questions are paraphrased and **template** directory indicates its questions are not paraphrased.
 * Each json file contains a list of python dictionary where each key indicates:
     * template_id: a number indicating its template ID.
     * question_id: a number indicating its question ID. Different paraphrases from the same template question share the same question ID.
@@ -47,14 +71,17 @@ ecgqa
     * attribute: a list of strings indicating the relevant attributes with the question. For comparison questions, it is set to `None` because the primary purpose of this information is aimed to the upperbound experiments where we need to convert each Single QA sample into appropriate ECG classification format.
 * `answers_for_each_template.csv` provides the possible answer options for each template ID.
 * `answers.csv` provides the whole answer options over all the QA samples.
-* `*_ecgs.csv` indicate which ecg IDs of PTB-XL are included in each split.
+* `*_ecgs.tsv` indicate which ecg IDs of PTB-XL are included in each split. (index, ecg_id) pair is written in each row, split by `\t`.
 
 # Usage Notes
 You can easily open and read data by the following codelines.
 ```python
+>>> import glob
 >>> import json
->>> with open("train.json", "r") as f:
-...     data = json.load(f)
+>>> data = []
+>>> for fname in sorted(glob.glob("ecgqa/paraphrased/train/*.json")):
+...     with open(fname, "r") as f:
+...         data.extend(json.load(f))
 >>> len(data)
 267539
 >>> data[0]
@@ -68,6 +95,36 @@ You can easily open and read data by the following codelines.
     "answer": ["yes"],
     "ecg_id": [12662],
     "attribute": ["non-diagnostic t abnormalities"]
+}
+```
+
+For efficient data processing, we don't provide the raw ECG values paired with each question, but, instead, the ECG IDs corresponded with the PTB-XL dataset.
+So, you may need to manually map each QA sample to its corresponding ECG sample using the paired ECG IDs, by mapping either of the actual ECG values or the ECG file path to the QA samples.
+Because there are approximately 400k QA samples over 16k PTB-XL ECGs totally, we recommend you to choose the latter approach which is mapping only the file path for each QA sample to save your disk space.
+We prepared a useful example python code to perform this, so please refer to the following commands when you try to process the ECG-QA dataset.
+```shell script
+$ python mapping_samples.py ecgqa/paraphrased \
+    --ptbxl-data-dir $ptbxl_dir \
+    --dest $dest_dir
+```
+You can also process the template version of ECG-QA by passing `ecgqa/template`.  
+`$ptbxl_dir` should be set to the root directory of the PTB-XL dataset which contains `records500/` directory. If you do not specify this argument, the script will automatically download the required PTB-XL data to the cache directory (`$HOME/.cache/ecgqa/ptbxl`).  
+Note that `$dest_dir` is set to `output/` by default.
+```python
+>>> import glob
+>>> import json
+>>> 
+>>> data = []
+>>> for fname in sorted(glob.glob("output/train/*.json")):
+...     with open(fname, "r") as f:
+...         data.extend(json.load(f))
+>>> data[0]
+{
+    ...,
+    "ecg_id": [12662],
+    "ecg_path": [
+        "$ptbxl_dir/records500/12000/12662_hr"
+    ]
 }
 ```
 
