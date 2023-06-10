@@ -99,7 +99,8 @@ You can easily open and read data by the following codelines.
 }
 ```
 
-For efficient data processing, we don't provide the raw ECG values paired with each question, but, instead, the ECG IDs corresponded with the PTB-XL dataset.
+For efficient data processing, we don't provide the raw ECG values paired with each question.
+Instead, we paired the ECG IDs corresponded with the PTB-XL dataset.
 So, you may need to manually map each QA sample to its corresponding ECG sample using the paired ECG IDs, by mapping either of the actual ECG values or the ECG file path to the QA samples.
 Because there are approximately 400k QA samples over 16k PTB-XL ECGs totally, we recommend you to choose the latter approach which is mapping only the file path for each QA sample to save your disk space.
 We prepared a useful example python code to perform this, so please refer to the following commands when you try to process the ECG-QA dataset.
