@@ -92,7 +92,7 @@ You can easily open and read data by the following codelines.
     "sample_id": 0,
     "question_type": "single-verify",
     "attribute_type": "scp_code",
-    "question": "Is non-diagnostic t abnormalities detectable from this ECG?",
+    "question": "Is there evidence of non-diagnostic t abnormalities on this ECG?",
     "answer": ["yes"],
     "ecg_id": [12662],
     "attribute": ["non-diagnostic t abnormalities"]
