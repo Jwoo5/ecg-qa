@@ -16,9 +16,9 @@ The dataset is organized as follows:
 ecgqa
 ├── answers_for_each_template.csv
 ├── answers.csv
-├── test_ecgs.csv
-├── train_ecgs.csv
-├── valid_ecgs.csv
+├── test_ecgs.tsv
+├── train_ecgs.tsv
+├── valid_ecgs.tsv
 ├── paraphrased
 │   ├─ test
 │   │   ├─ 00000.json
@@ -197,3 +197,10 @@ $ fairseq-hydra-train task.data=/path/to/output \
     --config-dir examples/scratch/ecg_classification/resnet \
     --config-name se_wrn_total
 ```
+
+## Run LLM Modeling Experiments
+
+
+# Contact
+If you have any questions or suggestions, feel free to contact me!
+* ojw0123@kaist.ac.kr
