@@ -146,6 +146,7 @@ $ pip install scipy wfdb pyarrow transformers
 2. Pre-process ECG-QA dataset.
 ```shell script
 $ python fairseq_signals/data/ecg_text/preprocess/preprocess_ecgqa.py \
+    /path/to/ecgqa \
     --ptbxl-data-dir /path/to/ptbxl \
     --dest /path/to/output \
     --apply_paraphrase
@@ -199,7 +200,38 @@ $ fairseq-hydra-train task.data=/path/to/output \
 ```
 
 ## Run LLM Modeling Experiments
+1. Install [fairseq-signals](https://github.com/Jwoo5/fairseq-signals).
+2. Pre-process ECG-QA dataset.
+```shell script
+$ python fairseq_signals/data/ecg_text/preprocess/preprocess_ecgqa.py \
+    /path/to/ecgqa \
+    --ptbxl-data-dir /path/to/ptbxl \
+    --dest /path/to/output \
+    --apply_paraphrase
+```
+Note that `--ptbxl-data-dir` should be set to the directory containing ptbxl ECG samples (i.e., `records500/...`).
 
+3. Sample 10% from the test set.
+```shell script
+$ python llm_modeling/random_sample.py /path/to/output \
+    --subset test \
+```
+It will output the sampled manifest file `test_sampled.tsv` in the `/path/to/output/` directory.
+
+4. Run the experiments:
+```shell script
+$ python llm_modeling/llm_modeling.py \
+    +openai_model=$model_name \
+    +openai_api_key=$api_key \
+    common_eval.path=/path/to/checkpoint.pt \
+    task.data=/path/to/output \
+    dataset.valid_subset=test_sampled \
+    --config-dir llm_modeling/config \
+    --config-name infer_llm
+```
+Note that you need to pass the path to the upper bound model checkpoint through `common_eval.path`.  
+You also need to pass OpenAI's API key ($api_key) to load the OpenAI's GPT model.  
+$model_name should be set to one of [`gpt-4`, `gpt-3.5-turbo`, `text-davinci-003`].  
 
 # Contact
 If you have any questions or suggestions, feel free to contact me!
