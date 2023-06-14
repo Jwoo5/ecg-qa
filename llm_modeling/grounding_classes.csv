@@ -1,0 +1,84 @@
+index,class
+0,abnormal qrs
+1,above the normal range of p duration
+2,above the normal range of pr interval
+3,above the normal range of qrs duration
+4,above the normal range of qt corrected
+5,above the normal range of qt interval
+6,above the normal range of rr interval
+7,any diagnostic symptoms
+8,any form-related symptoms
+9,any kind of abnormal symptoms
+10,any kind of extra systoles
+11,any kind of noises
+12,any rhythm-related symptoms
+13,atrial fibrillation
+14,atrial flutter
+15,atrial premature complex
+16,baseline drift
+17,below the normal range of pr interval
+18,below the normal range of qrs duration
+19,below the normal range of qt corrected
+20,below the normal range of qt interval
+21,below the normal range of rr interval
+22,"bigeminal pattern (unknown origin, supraventricular, or ventricular)"
+23,burst noise
+24,complete left bundle branch block
+25,complete right bundle branch block
+26,conduction disturbance
+27,digitalis effect
+28,early stage of myocardial infarction
+29,electrodes problems
+30,extrasystoles
+31,extreme axis deviation
+32,first degree av block
+33,high qrs voltage
+34,hypertrophy
+35,incomplete left bundle branch block
+36,incomplete right bundle branch block
+37,inverted t-waves
+38,ischemic
+39,late stage of myocardial infarction
+40,left anterior fascicular block
+41,left atrial overload/enlargement
+42,left axis deviation
+43,left posterior fascicular block
+44,left ventricular hypertrophy
+45,long qt-interval
+46,low amplitude t-wave
+47,low qrs voltages in the frontal and horizontal leads
+48,middle stage of myocardial infarction
+49,myocardial infarction
+50,non-diagnostic t abnormalities
+51,non-specific intraventricular conduction disturbance (block)
+52,non-specific ischemic
+53,non-specific st changes
+54,non-specific st depression
+55,non-specific st elevation
+56,non-specific t-wave changes
+57,normal ecg
+58,normal functioning artificial pacemaker
+59,normal heart axis
+60,prolonged pr interval
+61,q waves present
+62,right atrial overload/enlargement
+63,right axis deviation
+64,sinus arrhythmia
+65,sinus bradycardia
+66,sinus rhythm
+67,sinus tachycardia
+68,st/t change
+69,static noise
+70,subendocardial injury
+71,supraventricular extrasystoles
+72,supraventricular tachycardia
+73,t-wave abnormality
+74,ventricular extrasystoles
+75,ventricular premature complex
+76,voltage criteria (qrs) for left ventricular hypertrophy
+77,within the normal range of p duration
+78,within the normal range of pr interval
+79,within the normal range of qrs duration
+80,within the normal range of qt corrected
+81,within the normal range of qt interval
+82,within the normal range of rr interval

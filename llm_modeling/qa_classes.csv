@@ -1,0 +1,104 @@
+index,class
+0,no
+1,not sure
+2,yes
+3,conduction disturbance
+4,hypertrophy
+5,myocardial infarction
+6,st/t change
+7,complete left bundle branch block
+8,complete right bundle branch block
+9,digitalis effect
+10,first degree av block
+11,incomplete left bundle branch block
+12,incomplete right bundle branch block
+13,ischemic in anterior leads
+14,ischemic in anterolateral leads
+15,ischemic in anteroseptal leads
+16,ischemic in inferior leads
+17,ischemic in inferolateral leads
+18,ischemic in lateral leads
+19,left anterior fascicular block
+20,left atrial overload/enlargement
+21,left posterior fascicular block
+22,left ventricular hypertrophy
+23,long qt-interval
+24,myocardial infarction in anterior leads
+25,myocardial infarction in anterolateral leads
+26,myocardial infarction in anteroseptal leads
+27,myocardial infarction in inferior leads
+28,myocardial infarction in inferolateral leads
+29,myocardial infarction in inferoposterior leads
+30,myocardial infarction in inferoposterolateral leads
+31,myocardial infarction in lateral leads
+32,myocardial infarction in posterior leads
+33,non-diagnostic t abnormalities
+34,non-specific intraventricular conduction disturbance (block)
+35,non-specific ischemic
+36,non-specific st changes
+37,right atrial overload/enlargement
+38,subendocardial injury in anterolateral leads
+39,subendocardial injury in anteroseptal leads
+40,subendocardial injury in inferior leads
+41,subendocardial injury in inferolateral leads
+42,subendocardial injury in lateral leads
+43,abnormal qrs
+44,atrial premature complex
+45,high qrs voltage
+46,inverted t-waves
+47,low amplitude t-wave
+48,low qrs voltages in the frontal and horizontal leads
+49,non-specific st depression
+50,non-specific st elevation
+51,non-specific t-wave changes
+52,prolonged pr interval
+53,q waves present
+54,t-wave abnormality
+55,ventricular premature complex
+56,voltage criteria (qrs) for left ventricular hypertrophy
+57,atrial fibrillation
+58,atrial flutter
+59,"bigeminal pattern (unknown origin, supraventricular, or ventricular)"
+60,normal functioning artificial pacemaker
+61,sinus arrhythmia
+62,sinus bradycardia
+63,sinus rhythm
+64,sinus tachycardia
+65,supraventricular tachycardia
+66,lead I
+67,lead II
+68,lead III
+69,lead V1
+70,lead V2
+71,lead V3
+72,lead V4
+73,lead V5
+74,lead V6
+75,lead aVF
+76,lead aVL
+77,lead aVR
+78,extreme axis deviation
+79,left axis deviation
+80,normal heart axis
+81,right axis deviation
+82,early stage of myocardial infarction
+83,late stage of myocardial infarction
+84,middle stage of myocardial infarction
+85,none of myocardial infarction
+86,unknown stage of myocardial infarction
+87,baseline drift
+88,burst noise
+89,electrodes problems
+90,static noise
+91,extrasystoles
+92,supraventricular extrasystoles
+93,ventricular extrasystoles
+94,above the normal range
+95,below the normal range
+96,within the normal range
+97,p duration
+98,pr interval
+99,qrs duration
+100,qt corrected
+101,qt interval
+102,rr interval
