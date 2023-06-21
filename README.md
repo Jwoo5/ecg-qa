@@ -4,6 +4,16 @@ ECG-QA is a public question answering dataset with ECG signals based on the exis
 This dataset includes various types of questions including questions involving with a single ECG and comparison questions between two different ECGs.
 Furthermore, it covers a wide range of attribute types such as SCP Code (Symptoms in ECG), Noise, Stage of Infarction, Extra Systole, Heart Axis, and Numeric Feature.
 
+# Abstract
+Question answering (QA) in the field of healthcare has received much attention due to significant advancements in natural language processing.
+However, existing healthcare QA datasets primarily focus on medical images, clinical notes, or structured electronic health record tables.
+This leaves the vast potential of combining electrocardiogram (ECG) data with these systems largely untapped.
+To address this gap, we present ECG-QA, the first QA dataset specifically designed for ECG analysis.
+The dataset comprises a total of 70 question templates that cover a wide range of clinically relevant ECG topics, each validated by an ECG expert to ensure their clinical utility.
+As a result, our dataset includes diverse ECG interpretation questions, including those that require a comparative analysis of two different ECGs.
+In addition, we have conducted numerous experiments to provide valuable insights for future research directions.
+We believe that ECG-QA will serve as a valuable resource for the development of intelligent QA systems capable of assisting clinicians in ECG interpretations.
+
 # Demonstrations
 We provide [Google Colab Notebook](https://colab.research.google.com/drive/1LLHwtdfAw1jQ26jdHvT2bzDLoWZRrRA-?usp=sharing) to facilitate the users to skim over the dataset.
 
@@ -236,3 +246,6 @@ $model_name should be set to one of [`gpt-4`, `gpt-3.5-turbo`, `text-davinci-003
 # Contact
 If you have any questions or suggestions, feel free to contact me!
 * ojw0123@kaist.ac.kr
+
+# Citation
+We wil update this section as soon as the paper is published.
