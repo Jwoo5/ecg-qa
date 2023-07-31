@@ -1,8 +1,8 @@
 # ECG-QA: A Comprehensive Question Answering Dataset Combined With Electrocardiogram
 
-ECG-QA is a public question answering dataset with ECG signals based on the existing ECG dataset, [PTB-XL](https://physionet.org/content/ptb-xl/1.0.3/).
-This dataset includes various types of questions including questions involving with a single ECG and comparison questions between two different ECGs.
-Furthermore, it covers a wide range of attribute types such as SCP Code (Symptoms in ECG), Noise, Stage of Infarction, Extra Systole, Heart Axis, and Numeric Feature.
+This is the official repository for distributing ECG-QA dataset.
+
+For more detailed information about the dataset, please refer to [ECG-QA: A Comprehensive Question Answering Dataset Combined With Electrocardiogram]().
 
 # Abstract
 Question answering (QA) in the field of healthcare has received much attention due to significant advancements in natural language processing.
