@@ -279,10 +279,6 @@ def main(cfg: DictConfig, override_args=None):
                             examplar_buffers[sample["ecg_id"][i][0]] = statements
                             prompt += statements
                             
-                            #XXX
-                            if sample["ecg_id"][i][0] == 1135:
-                                breakpoint()
-
                         # comparison
                         if len(sample["ecg_id"][i]) == 2:
                             if "second ECG" in sample["question"][i]:
@@ -303,11 +299,6 @@ def main(cfg: DictConfig, override_args=None):
                                 statements += "\n\n"
                                 examplar_buffers[sample["ecg_id"][i][-1]] = statements
                                 prompt += statements
-
-                                #XXX
-                                if sample["ecg_id"][i][1] == 1135:
-                                    breakpoint()
-
 
                     prompt += "Question: "
                     prompt += sample["question"][i] + "\n"
