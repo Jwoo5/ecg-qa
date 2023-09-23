@@ -316,16 +316,16 @@ def main(cfg: DictConfig, override_args=None):
 
                     while True:
                         try:
-                            if cfg.openai_model == "gpt-4":
+                            if cfg.openai_model in ["gpt-4", "gpt-4-0314"]:
                                 completion = openai.ChatCompletion.create(
-                                    model="gpt-4",
+                                    model="gpt-4-0314",
                                     messages=[{"role": "user", "content": prompt}],
                                     temperature=0,
                                 )
                                 llm_answer = completion["choices"][0]["message"]["content"].lower()
-                            elif cfg.openai_model == "gpt-3.5-turbo":
+                            elif cfg.openai_model in ["gpt-3.5-turbo", "gpt-3.5-turbo-0301"]:
                                 completion = openai.ChatCompletion.create(
-                                    model="gpt-3.5-turbo",
+                                    model="gpt-3.5-turbo-0301",
                                     messages=[{"role": "user", "content": prompt}],
                                     temperature=0,
                                 )
