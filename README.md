@@ -1,8 +1,10 @@
 # ECG-QA: A Comprehensive Question Answering Dataset Combined With Electrocardiogram
 
+**[News] ECG-QA is accepted at NeurIPS 2023 Datasets and Benchmarks Track!**
+
 This is the official repository for distributing ECG-QA dataset.
 
-For more detailed information about the dataset, please refer to [ECG-QA: A Comprehensive Question Answering Dataset Combined With Electrocardiogram]().
+For more detailed information about the dataset, please refer to [ECG-QA: A Comprehensive Question Answering Dataset Combined With Electrocardiogram](https://arxiv.org/abs/2306.15681).
 
 # Abstract
 Question answering (QA) in the field of healthcare has received much attention due to significant advancements in natural language processing.
