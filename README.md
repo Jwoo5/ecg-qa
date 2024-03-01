@@ -1,10 +1,12 @@
 # ECG-QA: A Comprehensive Question Answering Dataset Combined With Electrocardiogram
 
-**[News] ECG-QA is accepted at NeurIPS 2023 Datasets and Benchmarks Track!**
-
 This is the official repository for distributing ECG-QA dataset.
 
 For more detailed information about the dataset, please refer to [ECG-QA: A Comprehensive Question Answering Dataset Combined With Electrocardiogram](https://arxiv.org/abs/2306.15681).
+
+### Update History
+* March 2024
+    * Added citation info
 
 # Abstract
 Question answering (QA) in the field of healthcare has received much attention due to significant advancements in natural language processing.
@@ -250,4 +252,18 @@ If you have any questions or suggestions, feel free to contact me!
 * ojw0123@kaist.ac.kr
 
 # Citation
-We wil update this section as soon as the paper is published.
+Please cite as:
+```
+@inproceedings{NEURIPS2023_d0b67349,
+ author = {Oh, Jungwoo and Lee, Gyubok and Bae, Seongsu and Kwon, Joon-myoung and Choi, Edward},
+ booktitle = {Advances in Neural Information Processing Systems},
+ editor = {A. Oh and T. Neumann and A. Globerson and K. Saenko and M. Hardt and S. Levine},
+ pages = {66277--66288},
+ publisher = {Curran Associates, Inc.},
+ title = {ECG-QA: A Comprehensive Question Answering Dataset Combined With Electrocardiogram},
+ url = {https://proceedings.neurips.cc/paper_files/paper/2023/file/d0b67349dd16b83b2cf6167fb4e2be50-Paper-Datasets_and_Benchmarks.pdf},
+ volume = {36},
+ year = {2023}
+}
+
+```
