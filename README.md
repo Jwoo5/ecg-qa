@@ -6,6 +6,7 @@ For more detailed information about the dataset, please refer to [ECG-QA: A Comp
 
 ### Update History
 * March 2024
+    * Specified release information
     * Added citation info
 
 # Abstract
@@ -17,6 +18,10 @@ The dataset comprises a total of 70 question templates that cover a wide range o
 As a result, our dataset includes diverse ECG interpretation questions, including those that require a comparative analysis of two different ECGs.
 In addition, we have conducted numerous experiments to provide valuable insights for future research directions.
 We believe that ECG-QA will serve as a valuable resource for the development of intelligent QA systems capable of assisting clinicians in ECG interpretations.
+
+# Release Notes
+* 1.0.0
+    * Initial release of the dataset
 
 # Demonstrations
 We provide [Google Colab Notebook](https://colab.research.google.com/drive/1LLHwtdfAw1jQ26jdHvT2bzDLoWZRrRA-?usp=sharing) to facilitate the users to skim over the dataset.
