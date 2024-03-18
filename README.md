@@ -6,6 +6,7 @@ For more detailed information about the dataset, please refer to [ECG-QA: A Comp
 
 ### Update History
 * March 2024
+    * [Released v1.0.1](#v1-0-1)
     * Specified release information
     * Added citation info
 
@@ -20,8 +21,12 @@ In addition, we have conducted numerous experiments to provide valuable insights
 We believe that ECG-QA will serve as a valuable resource for the development of intelligent QA systems capable of assisting clinicians in ECG interpretations.
 
 # Release Notes
+* <a id="v1-0-1"></a>1.0.1
+    * Renamed `late stage of myocardial infarction` to `old stage of myocardial infarction` in the corresponding questions. The rest of the contents remains the same with the original release.
 * 1.0.0
-    * Initial release of the dataset
+    * Initial release of the dataset.
+
+<!-- rename "late stage of MI" -> "old stage of MI" -->
 
 # Demonstrations
 We provide [Google Colab Notebook](https://colab.research.google.com/drive/1LLHwtdfAw1jQ26jdHvT2bzDLoWZRrRA-?usp=sharing) to facilitate the users to skim over the dataset.
