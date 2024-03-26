@@ -6,6 +6,7 @@ For more detailed information about the dataset, please refer to [ECG-QA: A Comp
 
 ### Update History
 * March 2024
+    * [Released v1.0.2](#v1-0-2)
     * [Released v1.0.1](#v1-0-1)
     * Specified release information
     * Added citation info
@@ -21,12 +22,14 @@ In addition, we have conducted numerous experiments to provide valuable insights
 We believe that ECG-QA will serve as a valuable resource for the development of intelligent QA systems capable of assisting clinicians in ECG interpretations.
 
 # Release Notes
+* <a id="v1-0-2"></a>1.0.2
+    * Released the expanded version of ECG-QA, where we sampled ECGs from [MIMIC-IV-ECG v1.0](https://www.physionet.org/content/mimic-iv-ecg/1.0/) on the same template to acquire a significantly larget set of ECGs.
+    * Some modifications have been made to reflect the expanded version. For example,
+        * The file structure of the dataset
 * <a id="v1-0-1"></a>1.0.1
     * Renamed `late stage of myocardial infarction` to `old stage of myocardial infarction` in the corresponding questions. The rest of the contents remains the same with the original release.
 * 1.0.0
     * Initial release of the dataset.
-
-<!-- rename "late stage of MI" -> "old stage of MI" -->
 
 # Demonstrations
 We provide [Google Colab Notebook](https://colab.research.google.com/drive/1LLHwtdfAw1jQ26jdHvT2bzDLoWZRrRA-?usp=sharing) to facilitate the users to skim over the dataset.
@@ -34,41 +37,82 @@ We provide [Google Colab Notebook](https://colab.research.google.com/drive/1LLHw
 ![sample1](figure/sample1.png)
 ![sample2](figure/sample2.png)
 
+Note that this demonstration includes only the original ECG-QA dataset, which is based on the PTB-XL dataset.
+
 # Dataset Description
+## Expanded Version (Based on MIMIC-IV-ECG)
+As of v1.0.2, we are pleased to introduce the expanded version of ECG-QA, which is based on the [MIMIC-IV-ECG v1.0](https://www.physionet.org/content/mimic-iv-ecg/1.0/) dataset.
+
+### Attributes
+Because the available data in MIMIC-IV-ECG comprises machine-generated statements with 12-lead ECG signals, we have manually labeled them according to the corresponding machine-generated statements with reference to [SCP-ECG v3.0 standard](https://www.iso.org/standard/84664.html).
+As a result, we could contain the following attributes in the expanded ECG-QA dataset:
+* SCP Code
+    * By parsing the machine-generated statements, we retained a total of 155 SCP codes, which can be categorized into diagnostic, form-related, and rhythm-related symptoms, similar to those in PTB-XL.
+* Noise
+    * Because the machine-generated statements in MIMIC-IV-ECG contained only information about _"Baseline Wander"_ regarding noise, unlike PTB-XL which included attributes such as _"Static Noise"_ or _"Burst Noise"_, _"Baseline Wander"_ alone was included as the sole attribute for Noise.
+* Stage of infarction
+    * Similar to PTB-XL, we inferred the stage of infarction by parsing the keywords (_e.g., early, recent, old_) in the machine-generated statements for myocardial infarction.
+* Heart Axis / Numeric Feature
+    * As same with the original ECG-QA, we calculated heart axis and numeric features by extracting P, Q, R, S, and T waves for each beat present in lead II.
+
+### Templates
+We used almost the same set of templates for this expanded dataset; however, several templates were excluded from the question sets.
+* Because we have the only one attribute (_i.e., "Baseline Wander"_) for Noise attributes, the following templates were excluded:
+    * 28 - _"Does this ECG show any kind of noises in ${lead}?"_
+    * 29 - _"Does this ECG show any kind of noises?"_
+    * 30 - _"Which noise does this ECG show, \$\{noise1\} or \$\{noise2\}?"_
+    * 31 - _"Which noise does this ECG show in ${lead}, \$\{noise1\} or \$\{noise2\}?"_
+    * 32 - _"What kind of noises does this ECG show?"_
+    * 33 - _"What kind of noises does this ECG show in ${lead}?"_
+* Because there is no information about _"Extra systoles"_ in machine-generated statements of MIMIC-IV-ECG, the following templates were excluded:
+    * 35 - _"Does this ECG show any kind of extra systoles?"_
+    * 36 - _"Does this ECG show \$\{extra_systole\}?"_
+    * 37 - _"Which kind of extra systoles does this ECG show, \$\{extra_systole1\} or \$\{extra_systole2\}?"_
+    * 38 - _"What kind of extra systole does this ECG show?"_
+
+### Considerations
+* While the machine statements in the PTB-XL dataset used for the original version of ECG-QA have been validated by cardiologists, those in MIMIC-IV-ECG have not undergone similar validation regarding their quality. Therefore, please note that there could be some mismatches between the assigned attributes based on the machine-generated statements and the true labels.
+
+## Dataset Structure
+
 The dataset is organized as follows:
 ```
 ecgqa
-├── answers_for_each_template.csv
-├── answers.csv
-├── test_ecgs.tsv
-├── train_ecgs.tsv
-├── valid_ecgs.tsv
-├── paraphrased
-│   ├─ test
-│   │   ├─ 00000.json
-│   │   │  ...
-│   │   └─ 80000.json
-│   ├─ train
-│   │   ├─ 00000.json
-│   │   │  ...
-│   │   └─ 260000.json
-│   └─ valid
-│       ├─ 00000.json
-│       │  ...
-│       └─ 60000.json
-└── template
-    ├─ test
-    │   ├─ 00000.json
-    │   │  ...
-    │   └─ 80000.json
-    ├─ train
-    │   ├─ 00000.json
-    │   │  ...
-    │   └─ 260000.json
-    └─ valid
-        ├─ 00000.json
-        │  ...
-        └─ 60000.json
+├── ptbxl
+│   ├── answers_for_each_template.csv
+│   ├── answers.csv
+│   ├── test_ecgs.tsv
+│   ├── train_ecgs.tsv
+│   ├── valid_ecgs.tsv
+│   ├── paraphrased
+│   │   ├─ test
+│   │   │   ├─ 00000.json
+│   │   │   │  ...
+│   │   │   └─ 80000.json
+│   │   ├─ train
+│   │   │   ├─ 00000.json
+│   │   │   │  ...
+│   │   │   └─ 260000.json
+│   │   └─ valid
+│   │       ├─ 00000.json
+│   │       │  ...
+│   │       └─ 60000.json
+│   └── template
+│       ├─ test
+│       │   ├─ 00000.json
+│       │   │  ...
+│       │   └─ 80000.json
+│       ├─ train
+│       │   ├─ 00000.json
+│       │   │  ...
+│       │   └─ 260000.json
+│       └─ valid
+│           ├─ 00000.json
+│           │  ...
+│           └─ 60000.json
+└── mimic-iv-ecg
+    ├── ...
+    └── (similar with the above)
 ```
 * All the QA samples are stored in each .json file, where **paraphrased** directory indicates its questions are paraphrased and **template** directory indicates its questions are not paraphrased.
 * Each json file contains a list of python dictionary where each key indicates:
@@ -92,11 +136,11 @@ ecgqa
         * `numeric_feature`
     * question: a question string
     * answer: a list of answer strings
-    * ecg_id: a list of ecg IDs of PTB-XL dataset. For comparison questions, it contains two corresponding ecg IDs. Otherwise, it has only one element.
+    * ecg_id: a list of ecg IDs of the source ECG dataset. For the original version, it indicates `ecg_id` in the PTB-XL dataset, whereas `study_id` in the MIMIC-IV-ECG dataset for the expanded version. For comparison questions, it contains two corresponding ecg IDs. Otherwise, it has only one element.
     * attribute: a list of strings indicating the relevant attributes with the question. For comparison questions, it is set to `None` because the primary purpose of this information is aimed to the upperbound experiments where we need to convert each Single QA sample into appropriate ECG classification format.
 * `answers_for_each_template.csv` provides the possible answer options for each template ID.
 * `answers.csv` provides the whole answer options over all the QA samples.
-* `*_ecgs.tsv` indicate which ecg IDs of PTB-XL are included in each split. (index, ecg_id) pair is written in each row, split by `\t`.
+* `*_ecgs.tsv` indicates which ecg IDs of the source ECG dataset (`ecg_id` for PTB-XL or `study_id` for MIMIC-IV-ECG) are included in each split. (index, ecg_id) pair is written in each row, split by `\t`.
 
 # Usage Notes
 You can easily open and read data by the following codelines.
@@ -104,7 +148,7 @@ You can easily open and read data by the following codelines.
 >>> import glob
 >>> import json
 >>> data = []
->>> for fname in sorted(glob.glob("ecgqa/paraphrased/train/*.json")):
+>>> for fname in sorted(glob.glob("ecgqa/ptbxl/paraphrased/train/*.json")):
 ...     with open(fname, "r") as f:
 ...         data.extend(json.load(f))
 >>> len(data)
@@ -124,24 +168,27 @@ You can easily open and read data by the following codelines.
 ```
 
 For efficient data processing, we don't provide the raw ECG values paired with each question.
-Instead, we paired the ECG IDs corresponded with the PTB-XL dataset.
+Instead, we paired the ECG IDs corresponded with the source ECG dataset (PTB-XL or MIMIC-IV-ECG).
 So, you may need to manually map each QA sample to its corresponding ECG sample using the paired ECG IDs, by mapping either of the actual ECG values or the ECG file path to the QA samples.
-Because there are approximately 400k QA samples over 16k PTB-XL ECGs totally, we recommend you to choose the latter approach which is mapping only the file path for each QA sample to save your disk space.
+Because there are much more QA samples than unique ECGs, we recommend you to choose the latter approach which is mapping only the file path for each QA sample to save your disk space.
 We prepared a useful example python code to perform this, so please refer to the following commands when you try to process the ECG-QA dataset.
+
+### For the original version (PTB-XL)
+
 ```shell script
-$ python mapping_samples.py ecgqa/paraphrased \
+$ python mapping_ptbxl_samples.py ecgqa/ptbxl/paraphrased \
     --ptbxl-data-dir $ptbxl_dir \
     --dest $dest_dir
 ```
-You can also process the template version of ECG-QA by passing `ecgqa/template`.  
+You can also process the template version of ECG-QA by passing `ecgqa/ptbxl/template`.  
 `$ptbxl_dir` should be set to the root directory of the PTB-XL dataset which contains `records500/` directory. If you do not specify this argument, the script will automatically download the required PTB-XL data to the cache directory (`$HOME/.cache/ecgqa/ptbxl`).  
-Note that `$dest_dir` is set to `output/` by default.
+Note that `$dest_dir` is set to `./output/ptbxl` by default.
 ```python
 >>> import glob
 >>> import json
 >>> 
 >>> data = []
->>> for fname in sorted(glob.glob("output/train/*.json")):
+>>> for fname in sorted(glob.glob("output/ptbxl/train/*.json")):
 ...     with open(fname, "r") as f:
 ...         data.extend(json.load(f))
 >>> data[0]
@@ -154,9 +201,21 @@ Note that `$dest_dir` is set to `output/` by default.
 }
 ```
 
+### For the expanded version (MIMIC-IV-ECG)
+
+```shell script
+$ python mapping_mimic_iv_ecg_samples.py ecgqa/mimic-iv-ecg/paraphrased \
+    --mimic-iv-ecg-data-dir $mimic_iv_ecg_dir \
+    --dest $dest_dir
+```
+As same with the above, you can also process the template version of ECG-QA by passing `ecgqa/mimic-iv-ecg/template`.  
+`$mimic_iv_ecg_dir` should be set to the root directory of the MIMIC-IV-ECG dataset which contains `files/` directory and `record_list.csv` file. If you do not specify this argument, the script will automatically download the required MIMIC-IV-ECG data to the cache directory ($HOME/.cache/ecgqa/mimic-iv-ecg).  
+Note that `$dest_dir` is set to `./output/mimic-iv-ecg` by default.
+
 # Quick Start
-We implemented all the experiment codes in the [fairseq-signals](https://github.com/Jwoo5/fairseq-signals) repostiory.  
-For detailed implementations, please refer to [here](https://github.com/Jwoo5/fairseq-signals/tree/master/fairseq_signals/data/ecg_text/preprocess) (See ECG-QA section).
+We implemented all the experiment codes specified in the paper on the [fairseq-signals](https://github.com/Jwoo5/fairseq-signals) repostiory.  
+For detailed implementations, please refer to [here](https://github.com/Jwoo5/fairseq-signals/tree/master/fairseq_signals/data/ecg_text/preprocess) (See ECG-QA section).  
+Note that this implementation only includes processing for the original version of ECG-QA (based on the PTB-XL dataset).
 
 ## Run QA Experiments
 1. Install [fairseq-signals](https://github.com/Jwoo5/fairseq-signals) following the guidelines.
