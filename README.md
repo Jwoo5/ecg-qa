@@ -23,7 +23,7 @@ We believe that ECG-QA will serve as a valuable resource for the development of 
 
 # Release Notes
 * <a id="v1-0-2"></a>1.0.2
-    * Released the expanded version of ECG-QA, where we sampled ECGs from [MIMIC-IV-ECG v1.0](https://www.physionet.org/content/mimic-iv-ecg/1.0/) on the same template to acquire a significantly larget set of ECGs.
+    * Released the expanded version of ECG-QA, where we sampled ECGs from [MIMIC-IV-ECG v1.0](https://www.physionet.org/content/mimic-iv-ecg/1.0/) on the same template to acquire a significantly larger set of ECGs.
     * Some modifications have been made to reflect the expanded version. For example,
         * The file structure of the dataset
 * <a id="v1-0-1"></a>1.0.1
