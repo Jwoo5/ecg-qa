@@ -5,13 +5,14 @@ import json
 import shutil
 from pathlib import Path
 import subprocess
+from tqdm import tqdm
 
 
 def get_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "root", metavar="DIR", default=".",
-        help='root directory containing ecgqa files (e.g., ecgqa/ptbxl/paraphrased/)'
+        help='root directory containing ecgqa files (e.g., ecgqa/ptbxl/)'
     )
     parser.add_argument(
         '--ptbxl-data-dir', metavar="DIR", default=None,
@@ -27,6 +28,7 @@ def get_parser():
 def main(args):
     dir_path = os.path.realpath(args.root)
     dest_path = os.path.realpath(args.dest)
+    subdirs = ["template", "paraphrased"]
 
     cache_path = os.path.join(str(Path.home()), ".cache/ecgqa")
     
@@ -50,30 +52,31 @@ def main(args):
     
     if not os.path.exists(dest_path):
         os.makedirs(dest_path)
-    
-    for fname in glob.iglob(os.path.join(dir_path, "**/*.json")):
-        split = fname.split("/")[-2]
-        basename = os.path.basename(fname)
-        if not os.path.exists(os.path.join(dest_path, split)):
-            os.makedirs(os.path.join(dest_path, split))
 
-        with open(fname, "r") as f:
-            data = json.load(f)
-        
-        for i, sample in enumerate(data):
-            sample["ecg_path"] = []
-            for ecg_id in sample["ecg_id"]:
-                if not os.path.exists(os.path.join(get_ptbxl_data_path(ecg_id, ptbxl_data_dir)) + ".dat"):
-                    raise FileNotFoundError(
-                        os.path.join(get_ptbxl_data_path(ecg_id, ptbxl_data_dir)),
-                        "If you ran the script without --ptbxl-data-dir, it may mean that "
-                        "the download has been failed by an unknown error. Please run the script "
-                        f"again after removing {cache_path}/ptbxl."
-                    )
-                sample["ecg_path"].append(get_ptbxl_data_path(ecg_id, ptbxl_data_dir))
+    for subdir in subdirs:
+        for fname in glob.iglob(os.path.join(dir_path, subdir, "**/*.json")):
+            split = fname.split("/")[-2]
+            basename = os.path.basename(fname)
+            if not os.path.exists(os.path.join(dest_path, subdir, split)):
+                os.makedirs(os.path.join(dest_path, subdir, split))
 
-        with open(os.path.join(dest_path, split, basename), "w") as f:
-            json.dump(data, f, indent=4)
+            with open(fname, "r") as f:
+                data = json.load(f)
+            
+            for i, sample in tqdm(enumerate(data), total=len(data), desc=os.path.join(subdir, split, basename)):
+                sample["ecg_path"] = []
+                for ecg_id in sample["ecg_id"]:
+                    if not os.path.exists(os.path.join(get_ptbxl_data_path(ecg_id, ptbxl_data_dir)) + ".dat"):
+                        raise FileNotFoundError(
+                            os.path.join(get_ptbxl_data_path(ecg_id, ptbxl_data_dir)),
+                            "If you ran the script without --ptbxl-data-dir, it may mean that "
+                            "the download has been failed by an unknown error. Please run the script "
+                            f"again after removing {cache_path}/ptbxl."
+                        )
+                    sample["ecg_path"].append(get_ptbxl_data_path(ecg_id, ptbxl_data_dir))
+
+            with open(os.path.join(dest_path, subdir, split, basename), "w") as f:
+                json.dump(data, f, indent=4)
 
 def get_ptbxl_data_path(ecg_id, ptbxl_data_dir):
     return os.path.join(

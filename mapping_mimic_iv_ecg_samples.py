@@ -12,7 +12,7 @@ def get_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "root", metavar="DIR", default=".",
-        help='root directory containing ecgqa files (e.g., ecgqa/mimic-iv-ecg/paraphrased/)'
+        help='root directory containing ecgqa files (e.g., ecgqa/mimic-iv-ecg/)'
     )
     parser.add_argument(
         "--mimic-iv-ecg-data-dir", metavar="DIR", default=None,
@@ -29,6 +29,7 @@ def get_parser():
 def main(args):
     dir_path = os.path.realpath(args.root)
     dest_path = os.path.realpath(args.dest)
+    subdirs = ["template", "paraphrased"]
 
     cache_path = os.path.join(str(Path.home()), ".cache/ecgqa")
     
@@ -54,30 +55,39 @@ def main(args):
 
     if not os.path.exists(dest_path):
         os.makedirs(dest_path)
+        if dest_path != dir_path:
+            shutil.copy2(
+                os.path.join(dir_path, "answers.csv"), os.path.join(dest_path, "answers.csv")
+            )
+            shutil.copy2(
+                os.path.join(dir_path, "answers_for_each_template.csv"),
+                os.path.join(dest_path, "answers_for_each_template.csv")
+            )
 
-    for fname in glob.iglob(os.path.join(dir_path, "**/*.json")):
-        split = fname.split("/")[-2]
-        basename = os.path.basename(fname)
-        if not os.path.exists(os.path.join(dest_path, split)):
-            os.makedirs(os.path.join(dest_path, split))
+    for subdir in subdirs:
+        for fname in glob.iglob(os.path.join(dir_path, subdir, "**/*.json")):
+            split = fname.split("/")[-2]
+            basename = os.path.basename(fname)
+            if not os.path.exists(os.path.join(dest_path, subdir, split)):
+                os.makedirs(os.path.join(dest_path, subdir, split))
 
-        with open(fname, "r") as f:
-            data = json.load(f)
+            with open(fname, "r") as f:
+                data = json.load(f)
 
-        for i, sample in tqdm(enumerate(data), total=len(data), desc=os.path.join(split, basename)):
-            sample["ecg_path"] = []
-            for ecg_id in sample["ecg_id"]:
-                data_path = os.path.join(mimic_iv_ecg_data_dir, record_list.loc[ecg_id]["path"])
-                if not os.path.exists(data_path + ".dat"):
-                    raise FileNotFoundError(
-                        f"{data_path}",
-                        "If you ran the script without --mimic-iv-ecg-data-dir, it may mean that "
-                        "the download has been failed by an unknown error. Please run the script "
-                        f"again after removing {cache_path}/mimic-iv-ecg."
-                    )
-                sample["ecg_path"].append(data_path)
-        with open(os.path.join(dest_path, split, basename), "w") as f:
-            json.dump(data, f, indent=4)
+            for i, sample in tqdm(enumerate(data), total=len(data), desc=os.path.join(subdir, split, basename)):
+                sample["ecg_path"] = []
+                for ecg_id in sample["ecg_id"]:
+                    data_path = os.path.join(mimic_iv_ecg_data_dir, record_list.loc[ecg_id]["path"])
+                    if not os.path.exists(data_path + ".dat"):
+                        raise FileNotFoundError(
+                            f"{data_path}",
+                            "If you ran the script without --mimic-iv-ecg-data-dir, it may mean that "
+                            "the download has been failed by an unknown error. Please run the script "
+                            f"again after removing {cache_path}/mimic-iv-ecg."
+                        )
+                    sample["ecg_path"].append(data_path)
+            with open(os.path.join(dest_path, subdir, split, basename), "w") as f:
+                json.dump(data, f, indent=4)
 
 if __name__ == "__main__":
     parser = get_parser()
