@@ -4,6 +4,13 @@ This is the official repository for distributing ECG-QA dataset.
 
 For more detailed information about the dataset, please refer to [ECG-QA: A Comprehensive Question Answering Dataset Combined With Electrocardiogram](https://arxiv.org/abs/2306.15681).
 
+
+### Urgent News
+> [!WARNING]
+> We found that `lead V3` was accidently excluded during the processing of the MIMIC-IV-ECG version (as of v1.0.2). Consequently, some QA samples contain incorrect lead positions.  
+> To address this issue, we have decided to republish the MIMIC-IV-ECG version after ensuring that all sampling processes are error-free.
+> This process may take 2 or 3 days.
+
 ### Update History
 * April 2024
     * Fixed errors in `ecg_id`s for the `comparison-consecutive-verify` questions of mimic-iv-ecg version. These changes have been incorporated into v1.0.2.
