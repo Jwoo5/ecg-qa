@@ -6,6 +6,7 @@ import shutil
 import pandas as pd
 from pathlib import Path
 import subprocess
+from tqdm import tqdm
 
 def get_parser():
     parser = argparse.ArgumentParser()
@@ -49,7 +50,7 @@ def main(args):
     else:
         mimic_iv_ecg_data_dir = args.mimic_iv_ecg_data_dir
     record_list = pd.read_csv(os.path.join(mimic_iv_ecg_data_dir, "record_list.csv"))
-    record_list.set_index("study_id")
+    record_list = record_list.set_index("study_id")
 
     if not os.path.exists(dest_path):
         os.makedirs(dest_path)
@@ -63,13 +64,13 @@ def main(args):
         with open(fname, "r") as f:
             data = json.load(f)
 
-        for i, sample in enumerate(data):
+        for i, sample in tqdm(enumerate(data), total=len(data), desc=os.path.join(split, basename)):
             sample["ecg_path"] = []
             for ecg_id in sample["ecg_id"]:
                 data_path = os.path.join(mimic_iv_ecg_data_dir, record_list.loc[ecg_id]["path"])
-                if not os.path.exists(data_path):
+                if not os.path.exists(data_path + ".dat"):
                     raise FileNotFoundError(
-                        f"{data_path}. ",
+                        f"{data_path}",
                         "If you ran the script without --mimic-iv-ecg-data-dir, it may mean that "
                         "the download has been failed by an unknown error. Please run the script "
                         f"again after removing {cache_path}/mimic-iv-ecg."

@@ -63,7 +63,7 @@ def main(args):
         for i, sample in enumerate(data):
             sample["ecg_path"] = []
             for ecg_id in sample["ecg_id"]:
-                if not os.path.exists(os.path.join(get_ptbxl_data_path(ecg_id, ptbxl_data_dir))):
+                if not os.path.exists(os.path.join(get_ptbxl_data_path(ecg_id, ptbxl_data_dir)) + ".dat"):
                     raise FileNotFoundError(
                         os.path.join(get_ptbxl_data_path(ecg_id, ptbxl_data_dir)),
                         "If you ran the script without --ptbxl-data-dir, it may mean that "
