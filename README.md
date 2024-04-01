@@ -5,6 +5,8 @@ This is the official repository for distributing ECG-QA dataset.
 For more detailed information about the dataset, please refer to [ECG-QA: A Comprehensive Question Answering Dataset Combined With Electrocardiogram](https://arxiv.org/abs/2306.15681).
 
 ### Update History
+* April 2024
+    * Fixed errors in `ecg_id`s for the `comparison-consecutive-verify` questions of mimic-iv-ecg version. These changes have been incorporated into v1.0.2.
 * March 2024
     * [Released v1.0.2](#v1-0-2)
     * [Released v1.0.1](#v1-0-1)
@@ -26,6 +28,7 @@ We believe that ECG-QA will serve as a valuable resource for the development of 
     * Released the expanded version of ECG-QA, where we sampled ECGs from [MIMIC-IV-ECG v1.0](https://www.physionet.org/content/mimic-iv-ecg/1.0/) on the same template to acquire a significantly larger set of ECGs.
     * Some modifications have been made to reflect the expanded version. For example,
         * The file structure of the dataset
+    * (Added at 2024.04.01) Fixed errors in `ecg_id`s for the `comparison-consecutive-verify` questions of mimic-iv-ecg version.
 * <a id="v1-0-1"></a>1.0.1
     * Renamed `late stage of myocardial infarction` to `old stage of myocardial infarction` in the corresponding questions. The rest of the contents remains the same with the original release.
 * 1.0.0
