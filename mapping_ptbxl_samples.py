@@ -52,6 +52,14 @@ def main(args):
     
     if not os.path.exists(dest_path):
         os.makedirs(dest_path)
+        if dest_path != dir_path:
+            shutil.copy2(
+                os.path.join(dir_path, "answers.csv"), os.path.join(dest_path, "answers.csv")
+            )
+            shutil.copy2(
+                os.path.join(dir_path, "answers_for_each_template.csv"),
+                os.path.join(dest_path, "answers_for_each_template.csv")
+            )
 
     for subdir in subdirs:
         for fname in glob.iglob(os.path.join(dir_path, subdir, "**/*.json")):
