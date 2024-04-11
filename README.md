@@ -308,12 +308,6 @@ For detailed implementations, please refer to [here](https://github.com/Jwoo5/fa
 
 ## Run LLM Modeling Experiments
 1. Install [fairseq-signals](https://github.com/Jwoo5/fairseq-signals).
-3. Pre-process ECG-QA dataset.
-    ```shell script
-    $ python fairseq_signals/data/ecg_text/preprocess/preprocess_ecgqa.py /path/to/ecgqa \
-        --dest /path/to/output \
-        --apply_paraphrase
-    ```
 2. Map `ecg_id`s to the corresponding ECG file path (See the above section for the details).  
     * For PTB-XL version:
         ```shell script
@@ -327,6 +321,12 @@ For detailed implementations, please refer to [here](https://github.com/Jwoo5/fa
             --mimic-iv-ecg-data-dir $mimic_iv_ecg_dir \
             --dest $dest_dir
         ```
+3. Pre-process ECG-QA dataset.
+    ```shell script
+    $ python fairseq_signals/data/ecg_text/preprocess/preprocess_ecgqa.py /path/to/ecgqa \
+        --dest /path/to/output \
+        --apply_paraphrase
+    ```
 4. Sample 10% from the test set.
     ```shell script
     $ python llm_modeling/random_sample.py /path/to/output \
