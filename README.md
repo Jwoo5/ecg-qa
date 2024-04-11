@@ -4,21 +4,17 @@ This is the official repository for distributing ECG-QA dataset.
 
 For more detailed information about the dataset, please refer to [ECG-QA: A Comprehensive Question Answering Dataset Combined With Electrocardiogram](https://arxiv.org/abs/2306.15681).
 
+### Update History (reverse chronological order)
+> [!NOTE]
+> As of 2024-04-09 (`yyyy-mm-dd`), we republished v1.0.2 after confirming that all sampling processes regarding MIMIC-IV-ECG-based ECG-QA have no error at all. **Please re-download the dataset if your dataset is out-dated**.
 
-### Urgent News
-> [!WARNING]
-> We found that `lead V3` was accidently excluded during the processing of the MIMIC-IV-ECG version (as of v1.0.2). Consequently, some QA samples contain incorrect lead positions.  
-> To address this issue, we have decided to republish the MIMIC-IV-ECG version after ensuring that all sampling processes are error-free.
-> This process may take 2 or 3 days.
-
-### Update History
 * April 2024
-    * Fixed errors in `ecg_id`s for the `comparison-consecutive-verify` questions of mimic-iv-ecg version. These changes have been incorporated into v1.0.2.
+    * (2024-04-09) Released a new version of v1.0.2 after ensuering all sampling processes regarding MIMIc-IV-ECG-based ECG-QA have no error at all. **Please re-download the dataset if your dataset is out-dated**.
 * March 2024
-    * [Released v1.0.2](#v1-0-2)
-    * [Released v1.0.1](#v1-0-1)
-    * Specified release information
-    * Added citation info
+    * ~~Released v1.0.2~~ (We've released a new version after correcting several errors in this version).
+    * [Released v1.0.1](#v1-0-1).
+    * Specified release information.
+    * Added citation info.
 
 # Abstract
 Question answering (QA) in the field of healthcare has received much attention due to significant advancements in natural language processing.
@@ -35,7 +31,11 @@ We believe that ECG-QA will serve as a valuable resource for the development of 
     * Released the expanded version of ECG-QA, where we sampled ECGs from [MIMIC-IV-ECG v1.0](https://www.physionet.org/content/mimic-iv-ecg/1.0/) on the same template to acquire a significantly larger set of ECGs.
     * Some modifications have been made to reflect the expanded version. For example,
         * The file structure of the dataset
-    * (Added at 2024.04.01) Fixed errors in `ecg_id`s for the `comparison-consecutive-verify` questions of mimic-iv-ecg version.
+    * (Added at 2024-04-09) Resampled QA samples for the MIMIC-IV-ECG version to ensure all sampling processes are error-free. **Please re-download the dataset if your dataset is out-dated**. This changes include the followings:
+        * Exclude ECG samples that contain `nan` values from the sampling processes.
+        * Typo error (`"paroxysmal idioventricualr rhythm"`) in some attributes has been corrected.
+        * `lead V3` has been involved to the sampling processes.
+        * `ecg_id`s for the `comparison-consecutive-verify` questions of MIMIC-IV-ECG-based ECG-QA have been corrected.
 * <a id="v1-0-1"></a>1.0.1
     * Renamed `late stage of myocardial infarction` to `old stage of myocardial infarction` in the corresponding questions. The rest of the contents remains the same with the original release.
 * 1.0.0
@@ -186,11 +186,11 @@ We prepared a useful example python code to perform this, so please refer to the
 ### For the original version (PTB-XL)
 
 ```shell script
-$ python mapping_ptbxl_samples.py ecgqa/ptbxl/paraphrased \
+$ python mapping_ptbxl_samples.py ecgqa/ptbxl \
     --ptbxl-data-dir $ptbxl_dir \
     --dest $dest_dir
 ```
-You can also process the template version of ECG-QA by passing `ecgqa/ptbxl/template`.  
+*As of v1.0.2, you don't need to specify `template` or `paraphrased` in the root directory for the script. The script now automatically processes both `template` and `paraphrased` version of the dataset.  
 `$ptbxl_dir` should be set to the root directory of the PTB-XL dataset which contains `records500/` directory. If you do not specify this argument, the script will automatically download the required PTB-XL data to the cache directory (`$HOME/.cache/ecgqa/ptbxl`).  
 Note that `$dest_dir` is set to `./output/ptbxl` by default.
 ```python
@@ -224,107 +224,130 @@ Note that `$dest_dir` is set to `./output/mimic-iv-ecg` by default.
 
 # Quick Start
 We implemented all the experiment codes specified in the paper on the [fairseq-signals](https://github.com/Jwoo5/fairseq-signals) repostiory.  
-For detailed implementations, please refer to [here](https://github.com/Jwoo5/fairseq-signals/tree/master/fairseq_signals/data/ecg_text/preprocess) (See ECG-QA section).  
-Note that this implementation only includes processing for the original version of ECG-QA (based on the PTB-XL dataset).
+For detailed implementations, please refer to [here](https://github.com/Jwoo5/fairseq-signals/tree/master/fairseq_signals/data/ecg_text/preprocess) (See ECG-QA section).
 
 ## Run QA Experiments
 1. Install [fairseq-signals](https://github.com/Jwoo5/fairseq-signals) following the guidelines.
-```shell script
-$ git clone https://github.com/Jwoo5/fairseq-signals
-$ cd fairseq-signals
-$ pip install --editable ./
-$ python setup.py build_ext --inplace
-$ pip install scipy wfdb pyarrow transformers
-```
-2. Pre-process ECG-QA dataset.
-```shell script
-$ python fairseq_signals/data/ecg_text/preprocess/preprocess_ecgqa.py \
-    /path/to/ecgqa \
-    --ptbxl-data-dir /path/to/ptbxl \
-    --dest /path/to/output \
-    --apply_paraphrase
-```
-Note that `--ptbxl-data-dir` should be set to the directory containing ptbxl ECG samples (i.e., `records500/...`).
+    ```shell script
+    $ git clone https://github.com/Jwoo5/fairseq-signals
+    $ cd fairseq-signals
+    $ pip install --editable ./
+    $ python setup.py build_ext --inplace
+    $ pip install scipy wfdb pyarrow transformers
+    ```
+2. Map `ecg_id`s to the corresponding ECG file path (See the above section for the details).  
+    * For PTB-XL version:
+        ```shell script
+        $ python mapping_ptbxl_samples.py ecgqa/ptbxl \
+            --ptbxl-data-dir $ptbxl_dir \
+            --dest $dest_dir
+        ```
+    * For MIMIC-IV-ECG version:
+        ```shell script
+        $ python mapping_mimic_iv_ecg_samples.py ecgqa/mimic-iv-ecg \
+            --mimic-iv-ecg-data-dir $mimic_iv_ecg_dir \
+            --dest $dest_dir
+        ```
+3. Pre-process ECG-QA dataset.
+    ```shell script
+    $ python fairseq_signals/data/ecg_text/preprocess/preprocess_ecgqa.py /path/to/ecgqa \
+        --dest /path/to/output \
+        --apply_paraphrase
+    ```
+    \*`/path/to/ecgqa` should be consistent with `$dest_dir` in the mapping script (i.e., `mapping_ptbxl_samples.py` or `mapping_mimic_iv_ecg_samples.py`).  
+    Note that if you run with `--apply_paraphrase`, the scripts will process the paraphrased version of ECG-QA dataset. Otherwise, it will process the template version.  
 
-3. Run experiments.
-```shell script
-$ fairseq-hydra-train task.data=/path/to/output/paraphrased \
-    model.num_labels=103 \
-    --config-dir examples/scratch/ecg_question_answering/$model_name \
-    --config-name $model_config_name
-```
-$model_name: the name of the ECG-QA model (e.g., `ecg_transformer`)
-$model_config_name: the name of the configuration file (e.g., `base`)
+4. Run experiments.
+    ```shell script
+    $ fairseq-hydra-train task.data=/path/to/output/paraphrased \
+        model.num_labels=$num_labels \
+        --config-dir /fairseq-signals/examples/scratch/ecg_question_answering/$model_name \
+        --config-name $model_config_name
+    ```
+    $num_labels: the number of answers specified in `answers.csv`. In other words, `103` for ptb-xl version, and `187` for mimic-iv-ecg version (Note that the answer `none` is not counted because it is regardeed as an "empty label").  
+    $model_name: the name of the ECG-QA model (e.g., `ecg_transformer`)  
+    $model_config_name the name of the configuration file (e.g., `base`)
 
 ## Run Upperbound Experiments
 1. Install [fairseq-signals](https://github.com/Jwoo5/fairseq-signals) as the same with the above.
 2. Pre-process ECG-QA dataset to be compatible with upperbound experiments.
-```shell script
-$ python fairseq_signals/data/ecg_text/preprocess/preprocess_ecgqa_for_classification.py \
-    /path/to/ecgqa \
-    --ptbxl-data-dir /path/to/ptbxl \
-    --dest /path/to/output
-```
+    ```shell script
+    $ python fairseq_signals/data/ecg_text/preprocess/preprocess_ecgqa_for_classification.py /path/to/ecgqa \
+        --dest /path/to/output
+    ```
+    \*Note that before running this script, you should have mapped ecg_id to the corresponding ECG file path by `mapping_ptbxl_samples.py` or `mapping_mimic_iv_ecg_samples.py`.  
 3. For W2V+CMSC+RLM:
-```shell script
-$ fairseq-hydra-train task.data=/path/to/output \
-    model.num_labels=83 \
-    model.model_path=/path/to/checkpoint.pt \
-    --config-dir examples/w2v_cmsc/config/finetuning/ecg_transformer/grounding_classification \
-    --config-name base_total
-```
-Note that you need to pass the path to the pretrained model checkpoint through `model.model_path`.  
-To pre-train the model, refer to [here](../../../../examples/w2v_cmsc/README.md).
+    ```shell script
+    $ fairseq-hydra-train task.data=/path/to/output \
+        model.num_labels=$num_labels \
+        model.model_path=/path/to/checkpoint.pt \
+        --config-dir /fairseq-signals/examples/w2v_cmsc/config/finetuning/ecg_transformer/grounding_classification \
+        --config-name base_total
+    ```
+    $num_labels: the number of attributes for the upperbound experiments. `83` for ptb-xl version, and `164` for mimic-iv-ecg version. (see `grounding_class.csv`)  
+    Note that you need to pass the path to the pretrained model checkpoint through `model.model_path`.  
+    To pre-train the model, refer to [here](../../../../examples/w2v_cmsc/README.md).  
 
 4. For Resnet + Attention model:
-```shell script
-$ fairseq-hydra-train task.data=/path/to/output \
-    model.num_labels=83 \
-    --config-dir examples/scratch/ecg_classification/resnet \
-    --config-name nejedly2021_total
-```
+    ```shell script
+    $ fairseq-hydra-train task.data=/path/to/output \
+        model.num_labels=$num_labels \
+        --config-dir /fairseq-signals/examples/scratch/ecg_classification/resnet \
+        --config-name nejedly2021_total
+    ```
+    $num_labels: the number of attributes for the upperbound experiments. `83` for ptb-xl version, and `164` for mimic-iv-ecg version. (see `grounding_class.csv`)  
 
 5. For SE-WRN model:
-```shell script
-$ fairseq-hydra-train task.data=/path/to/output \
-    model.num_labels=83 \
-    --config-dir examples/scratch/ecg_classification/resnet \
-    --config-name se_wrn_total
-```
+    ```shell script
+    $ fairseq-hydra-train task.data=/path/to/output \
+        model.num_labels=$num_labels \
+        --config-dir /fairseq-signals/examples/scratch/ecg_classification/resnet \
+        --config-name se_wrn_total
+    ```
+    $num_labels: the number of attributes for the upperbound experiments. `83` for ptb-xl version, and `164` for mimic-iv-ecg version. (see `grounding_class.csv`)  
 
-## Run LLM Modeling Experiments
+## Run LLM Modeling Experiments (Provided only for PTB-XL version currently)
 1. Install [fairseq-signals](https://github.com/Jwoo5/fairseq-signals).
-2. Pre-process ECG-QA dataset.
-```shell script
-$ python fairseq_signals/data/ecg_text/preprocess/preprocess_ecgqa.py \
-    /path/to/ecgqa \
-    --ptbxl-data-dir /path/to/ptbxl \
-    --dest /path/to/output \
-    --apply_paraphrase
-```
-Note that `--ptbxl-data-dir` should be set to the directory containing ptbxl ECG samples (i.e., `records500/...`).
+3. Pre-process ECG-QA dataset.
+    ```shell script
+    $ python fairseq_signals/data/ecg_text/preprocess/preprocess_ecgqa.py /path/to/ecgqa \
+        --dest /path/to/output \
+        --apply_paraphrase
+    ```
+2. Map `ecg_id`s to the corresponding ECG file path (See the above section for the details).  
+    * For PTB-XL version:
+        ```shell script
+        $ python mapping_ptbxl_samples.py ecgqa/ptbxl \
+            --ptbxl-data-dir $ptbxl_dir \
+            --dest $dest_dir
+        ```
+    * For MIMIC-IV-ECG version:
+        ```shell script
+        $ python mapping_mimic_iv_ecg_samples.py ecgqa/mimic-iv-ecg \
+            --mimic-iv-ecg-data-dir $mimic_iv_ecg_dir \
+            --dest $dest_dir
+        ```
+4. Sample 10% from the test set.
+    ```shell script
+    $ python llm_modeling/random_sample.py /path/to/output \
+        --subset test \
+    ```
+    It will output the sampled manifest file `test_sampled.tsv` in the `/path/to/output/` directory.
 
-3. Sample 10% from the test set.
-```shell script
-$ python llm_modeling/random_sample.py /path/to/output \
-    --subset test \
-```
-It will output the sampled manifest file `test_sampled.tsv` in the `/path/to/output/` directory.
-
-4. Run the experiments:
-```shell script
-$ python llm_modeling/llm_modeling.py \
-    +openai_model=$model_name \
-    +openai_api_key=$api_key \
-    common_eval.path=/path/to/checkpoint.pt \
-    task.data=/path/to/output \
-    dataset.valid_subset=test_sampled \
-    --config-dir llm_modeling/config \
-    --config-name infer_llm
-```
-Note that you need to pass the path to the upper bound model checkpoint through `common_eval.path`.  
-You also need to pass OpenAI's API key ($api_key) to load the OpenAI's GPT model.  
-$model_name should be set to one of [`gpt-4`, `gpt-3.5-turbo`, `text-davinci-003`].  
+5. Run the experiments:
+    ```shell script
+    $ python llm_modeling/llm_modeling.py \
+        +openai_model=$model_name \
+        +openai_api_key=$api_key \
+        common_eval.path=/path/to/checkpoint.pt \
+        task.data=/path/to/output \
+        dataset.valid_subset=test_sampled \
+        --config-dir llm_modeling/config \
+        --config-name infer_llm
+    ```
+    Note that you need to pass the path to the upper bound model checkpoint through `common_eval.path`.  
+    You also need to pass OpenAI's API key ($api_key) to load the OpenAI's GPT model.  
+    $model_name should be set to one of [`gpt-4`, `gpt-3.5-turbo`, `text-davinci-003`].  
 
 # Contact
 If you have any questions or suggestions, feel free to contact me!
