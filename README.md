@@ -6,10 +6,10 @@ For more detailed information about the dataset, please refer to [ECG-QA: A Comp
 
 ### Update History (reverse chronological order)
 > [!NOTE]
-> As of 2024-04-09 (`yyyy-mm-dd`), we republished v1.0.2 after confirming that all sampling processes regarding MIMIC-IV-ECG-based ECG-QA have no error at all. **Please re-download the dataset if your dataset is out-dated**.
+> As of 2024-04-11 (`yyyy-mm-dd`), we republished v1.0.2 after confirming that all sampling processes regarding MIMIC-IV-ECG-based ECG-QA have no error at all. **Please re-download the dataset if your dataset is out-dated**.
 
 * April 2024
-    * (2024-04-09) Released a new version of v1.0.2 after ensuering all sampling processes regarding MIMIc-IV-ECG-based ECG-QA have no error at all. **Please re-download the dataset if your dataset is out-dated**.
+    * (2024-04-11) Released a new version of v1.0.2 after ensuering all sampling processes regarding MIMIc-IV-ECG-based ECG-QA have no error at all. **Please re-download the dataset if your dataset is out-dated**.
 * March 2024
     * ~~Released v1.0.2~~ (We've released a new version after correcting several errors in this version).
     * [Released v1.0.1](#v1-0-1).
@@ -31,7 +31,7 @@ We believe that ECG-QA will serve as a valuable resource for the development of 
     * Released the expanded version of ECG-QA, where we sampled ECGs from [MIMIC-IV-ECG v1.0](https://www.physionet.org/content/mimic-iv-ecg/1.0/) on the same template to acquire a significantly larger set of ECGs.
     * Some modifications have been made to reflect the expanded version. For example,
         * The file structure of the dataset
-    * (Added at 2024-04-09) Resampled QA samples for the MIMIC-IV-ECG version to ensure all sampling processes are error-free. **Please re-download the dataset if your dataset is out-dated**. This changes include the followings:
+    * (Added at 2024-04-11) Resampled QA samples for the MIMIC-IV-ECG version to ensure all sampling processes are error-free. **Please re-download the dataset if your dataset is out-dated**. This changes include the followings:
         * Exclude ECG samples that contain `nan` values from the sampling processes.
         * Typo error (`"paroxysmal idioventricualr rhythm"`) in some attributes has been corrected.
         * `lead V3` has been involved to the sampling processes.
