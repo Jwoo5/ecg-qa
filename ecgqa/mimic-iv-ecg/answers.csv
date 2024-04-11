@@ -109,78 +109,81 @@ index,class
 107,junctional tachycardia
 108,pacemaker activity
 109,pacemaker rhythm
-110,rapid ventricular response
-111,regular rhythm
-112,sinus arrhythmia
-113,sinus bradycardia
-114,sinus rhythm
-115,slow ventricular response
-116,supraventricular bigeminy BIGU bigeminal pattern
-117,supraventricular rhythm
-118,uncontrolled ventricular response
-119,ventricular bigeminy
-120,ventricular couplet
-121,ventricular escape rhythm
-122,ventricular trigeminy
-123,ventricular-paced complexes or rhythm
-124,wandering pacemaker
-125,wide QRS tachycardia
-126,lead I
-127,lead II
-128,lead III
-129,lead V1
-130,lead V2
-131,lead V3
-132,lead V4
-133,lead V5
-134,lead V6
-135,lead aVF
-136,lead aVL
-137,lead aVR
-138,extreme axis deviation
-139,left axis deviation
-140,normal heart axis
-141,right axis deviation
-142,early stage of myocardial infarction
-143,middle stage of myocardial infarction
-144,old stage of myocardial infarction
-145,none of myocardial infarction
-146,unknown stage of myocardial infarction
-147,above the normal range
-148,below the normal range
-149,within the normal range
-150,p duration
-151,pr interval
-152,qrs duration
-153,qt corrected
-154,qt interval
-155,rr interval
-156,2:1 AV block
-157,3:1 AV block
-158,4:1 AV block
-159,AV dissociation
-160,Biventricular hypertrophy
-161,Myocardial infarction
-162,aberrant supraventricular complexes
-163,aberrant ventricular complex
-164,complete left bundle branch block
-165,complete right bundle branch block
-166,first degree AV block
-167,incomplete left bundle branch block
-168,incomplete right bundle branch block
-169,intermittent second degree AV block
-170,intraventricular conduction disturbance
-171,ischemic ST-T changes
-172,paroxysmal idioventricular rhythm
-173,Wolff-Parkinson-White syndrome
-174,abnormal ventricular conduction pathways
-175,atypical left bundle branch block
-176,atypical right bundle branch block
-177,left posterior fascicular block
-178,right atrial overload/enlargement
-179,sinus pause
-180,third degree AV block
-181,unclassified aberrantly conducted complexes
-182,Mobitz type 1 second-degree AV block
-183,second degree AV block
-184,right ventricular conduction delay
+110,paroxysmal idioventricular rhythm
+111,rapid ventricular response
+112,regular rhythm
+113,sinus arrhythmia
+114,sinus bradycardia
+115,sinus rhythm
+116,slow ventricular response
+117,supraventricular bigeminy BIGU bigeminal pattern
+118,supraventricular rhythm
+119,uncontrolled ventricular response
+120,ventricular bigeminy
+121,ventricular couplet
+122,ventricular escape rhythm
+123,ventricular trigeminy
+124,ventricular-paced complexes or rhythm
+125,wandering pacemaker
+126,wide QRS tachycardia
+127,lead I
+128,lead II
+129,lead III
+130,lead V1
+131,lead V2
+132,lead V3
+133,lead V4
+134,lead V5
+135,lead V6
+136,lead aVF
+137,lead aVL
+138,lead aVR
+139,extreme axis deviation
+140,left axis deviation
+141,normal heart axis
+142,right axis deviation
+143,early stage of myocardial infarction
+144,middle stage of myocardial infarction
+145,old stage of myocardial infarction
+146,none of myocardial infarction
+147,unknown stage of myocardial infarction
+148,above the normal range
+149,below the normal range
+150,within the normal range
+151,p duration
+152,pr interval
+153,qrs duration
+154,qt corrected
+155,qt interval
+156,rr interval
+157,2:1 AV block
+158,3:1 AV block
+159,4:1 AV block
+160,AV dissociation
+161,Biventricular hypertrophy
+162,Mobitz type 1 second-degree AV block
+163,Myocardial infarction
+164,Wolff-Parkinson-White syndrome
+165,aberrant supraventricular complexes
+166,aberrant ventricular complex
+167,abnormal ventricular conduction pathways
+168,complete left bundle branch block
+169,complete right bundle branch block
+170,first degree AV block
+171,incomplete left bundle branch block
+172,incomplete right bundle branch block
+173,intermittent second degree AV block
+174,intraventricular conduction disturbance
+175,ischemic ST-T changes
+176,second degree AV block
+177,third degree AV block
+178,atypical right bundle branch block
+179,high grade AV block
+180,left posterior fascicular block
+181,right atrial overload/enlargement
+182,sinus pause
+183,2:1 sinoatrial block
+184,Wolff-Parkinson type B
+185,right ventricular conduction delay
+186,second-degree SA block type II
+187,unclassified aberrantly conducted complexes
