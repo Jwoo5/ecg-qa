@@ -306,7 +306,7 @@ For detailed implementations, please refer to [here](https://github.com/Jwoo5/fa
     ```
     $num_labels: the number of attributes for the upperbound experiments. `83` for ptb-xl version, and `164` for mimic-iv-ecg version. (see `grounding_class.csv`)  
 
-## Run LLM Modeling Experiments (Provided only for PTB-XL version currently)
+## Run LLM Modeling Experiments
 1. Install [fairseq-signals](https://github.com/Jwoo5/fairseq-signals).
 3. Pre-process ECG-QA dataset.
     ```shell script
@@ -332,7 +332,7 @@ For detailed implementations, please refer to [here](https://github.com/Jwoo5/fa
     $ python llm_modeling/random_sample.py /path/to/output \
         --subset test \
     ```
-    It will output the sampled manifest file `test_sampled.tsv` in the `/path/to/output/` directory.
+    It will sample 10% from `test.tsv` in the `/path/to/output/` directory and output the sampled manifest file `test_sampled.tsv` in the same directory.
 
 5. Run the experiments:
     ```shell script
