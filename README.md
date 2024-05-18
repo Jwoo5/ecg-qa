@@ -8,6 +8,8 @@ For more detailed information about the dataset, please refer to [ECG-QA: A Comp
 > [!NOTE]
 > As of 2024-04-11 (`yyyy-mm-dd`), we republished v1.0.2 after confirming that all sampling processes regarding MIMIC-IV-ECG-based ECG-QA have no error at all. **Please re-download the dataset if your dataset is out-dated**.
 
+* May 2024
+    * Errors occurred in PTB-XL ECG-QA samples have been corrected, where we replaced `"late stage of myocardial infarction"` with `"old stage of myocardial infarction"` in the `answer`s for the corresponding samples. Other samples remain the same with the last release. This change has been merged to v1.0.2
 * April 2024
     * (2024-04-11) Released a new version of v1.0.2 after ensuering all sampling processes regarding MIMIc-IV-ECG-based ECG-QA have no error at all. **Please re-download the dataset if your dataset is out-dated**.
 * March 2024
@@ -28,6 +30,7 @@ We believe that ECG-QA will serve as a valuable resource for the development of 
 
 # Release Notes
 * <a id="v1-0-2"></a>1.0.2
+    * Errors occurred in PTB-XL ECG-QA samples have been corrected, where we replaced `"late stage of myocardial infarction"` with `"old stage of myocardial infarction"` in the `answer`s for the corresponding samples. Other samples remain the same with the last release.
     * Released the expanded version of ECG-QA, where we sampled ECGs from [MIMIC-IV-ECG v1.0](https://www.physionet.org/content/mimic-iv-ecg/1.0/) on the same template to acquire a significantly larger set of ECGs.
     * Some modifications have been made to reflect the expanded version. For example,
         * The file structure of the dataset
