@@ -1,6 +1,7 @@
 common:
   all_gather_list_size: 2048000
   log_interval: 100
+  # wandb_entity: ecg-qa
   # wandb_project: question-answering-llm
 
 common_eval:
