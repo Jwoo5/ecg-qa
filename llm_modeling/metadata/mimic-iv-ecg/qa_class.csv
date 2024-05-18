@@ -1,0 +1,188 @@
+index,class
+0,no
+1,not sure
+2,yes
+3,conduction disturbance
+4,hypertrophy
+5,myocardial infarction
+6,st/t change
+7,AV-junctional rhythm
+8,Left ventricular hypertrophy
+9,Myocardial infarction in anterior leads
+10,Myocardial infarction in anterolateral leads
+11,Myocardial infarction in anteroseptal leads
+12,Myocardial infarction in inferior leads
+13,Myocardial infarction in inferolateral leads
+14,Myocardial infarction in inferoseptal leads
+15,Myocardial infarction in lateral leads
+16,Myocardial infarction in posterior leads
+17,Myocardial infarction in septal leads
+18,Right ventricular hypertrophy
+19,ST-T change due to ventricular hypertrophy
+20,accelerated junctional rhythm
+21,atrial flutter
+22,bi-atrial overload/enlargement
+23,dextrocardia
+24,early repolarization
+25,ischemic ST-T changes in anterior leads
+26,ischemic ST-T changes in anterolateral leads
+27,ischemic ST-T changes in anteroseptal leads
+28,ischemic ST-T changes in diffuse leads
+29,ischemic ST-T changes in inferior leads
+30,ischemic ST-T changes in inferolateral leads
+31,ischemic ST-T changes in inferoseptal leads
+32,ischemic ST-T changes in lateral leads
+33,ischemic ST-T changes in septal leads
+34,junctional rhythm
+35,left anterior fascicular block
+36,left atrial overload/enlargement
+37,non-sustained ventricular tachycardia
+38,pericarditis
+39,sinus tachycardia
+40,supraventricular tachycardia
+41,ventricular tachycardia
+42,Broad R wave in lateral leads
+43,Deep S wave
+44,P wave abnormality
+45,Prolonged PR interval
+46,Q waves present
+47,QRS changes in anteroseptal leads
+48,QTc prolongation
+49,Reversed R wave progression
+50,S1 S2 S3 type QRS pattern
+51,ST Depression
+52,ST Elevation
+53,ST(-T) change
+54,Short PR interval
+55,Significant repolarization change
+56,T-wave abnormality
+57,TU fusion
+58,Voltage criteria (QRS) for left ventricular hypertrophy
+59,abnormal R wave progression
+60,early R wave transition
+61,high P-voltages
+62,high QRS voltage
+63,high amplitude T-waves
+64,inverted T-waves
+65,late R wave transition
+66,long QT interval
+67,low QRS voltage
+68,low R
+69,multifocal premature ventricular complexes
+70,non-diagnostic T abnormalities
+71,non-specific ST changes
+72,non-specific ST depression
+73,non-specific T-wave changes
+74,non-specific t abnormality
+75,notched P wave
+76,paired ventricular premature complexes
+77,poor R wave progression
+78,premature atrial complexes
+79,premature ventricular complexes
+80,premature ventricular interpolated complexes
+81,prolonged QRS duration
+82,rSr' type in V1 or V2
+83,repolarization abnormality
+84,short QT interval
+85,short QTc
+86,supraventricular extrasystoles
+87,supraventricular premature complex
+88,tall R wave in V1 or V2
+89,tall R wave in V5 or V6
+90,AV sequential pacemaker
+91,accelerated idioventricular rhythm
+92,atrial arrhythmia
+93,atrial bigeminy
+94,atrial couplet
+95,atrial fibrillation
+96,atrial tachycardia
+97,dual chamber electronic pacing
+98,ectopic atrial bradycardia
+99,ectopic atrial rhythm
+100,ectopic atrial tachycardia
+101,electronic atrial pacing
+102,extreme tachycardia
+103,fusion complexes
+104,idioventricular rhythm
+105,junctional bradycardia
+106,junctional tachycardia
+107,pacemaker activity
+108,pacemaker rhythm
+109,paroxysmal idioventricular rhythm
+110,rapid ventricular response
+111,regular rhythm
+112,sinus arrhythmia
+113,sinus bradycardia
+114,sinus rhythm
+115,slow ventricular response
+116,supraventricular bigeminy BIGU bigeminal pattern
+117,supraventricular rhythm
+118,uncontrolled ventricular response
+119,ventricular bigeminy
+120,ventricular couplet
+121,ventricular escape rhythm
+122,ventricular trigeminy
+123,ventricular-paced complexes or rhythm
+124,wandering pacemaker
+125,wide QRS tachycardia
+126,lead I
+127,lead II
+128,lead III
+129,lead V1
+130,lead V2
+131,lead V3
+132,lead V4
+133,lead V5
+134,lead V6
+135,lead aVF
+136,lead aVL
+137,lead aVR
+138,extreme axis deviation
+139,left axis deviation
+140,normal heart axis
+141,right axis deviation
+142,early stage of myocardial infarction
+143,middle stage of myocardial infarction
+144,old stage of myocardial infarction
+145,none of myocardial infarction
+146,unknown stage of myocardial infarction
+147,above the normal range
+148,below the normal range
+149,within the normal range
+150,p duration
+151,pr interval
+152,qrs duration
+153,qt corrected
+154,qt interval
+155,rr interval
+156,2:1 AV block
+157,3:1 AV block
+158,4:1 AV block
+159,AV dissociation
+160,Biventricular hypertrophy
+161,Mobitz type 1 second-degree AV block
+162,Myocardial infarction
+163,Wolff-Parkinson-White syndrome
+164,aberrant supraventricular complexes
+165,aberrant ventricular complex
+166,abnormal ventricular conduction pathways
+167,complete left bundle branch block
+168,complete right bundle branch block
+169,first degree AV block
+170,incomplete left bundle branch block
+171,incomplete right bundle branch block
+172,intermittent second degree AV block
+173,intraventricular conduction disturbance
+174,ischemic ST-T changes
+175,second degree AV block
+176,third degree AV block
+177,atypical right bundle branch block
+178,high grade AV block
+179,left posterior fascicular block
+180,right atrial overload/enlargement
+181,sinus pause
+182,2:1 sinoatrial block
+183,Wolff-Parkinson type B
+184,right ventricular conduction delay
+185,second-degree SA block type II
+186,unclassified aberrantly conducted complexes

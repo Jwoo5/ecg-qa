@@ -1,0 +1,165 @@
+index,class
+0,2:1 AV block
+1,2:1 sinoatrial block
+2,3:1 AV block
+3,4:1 AV block
+4,AV dissociation
+5,AV sequential pacemaker
+6,Biventricular hypertrophy
+7,Broad R wave in lateral leads
+8,Deep S wave
+9,Left ventricular hypertrophy
+10,Mobitz type 1 second-degree AV block
+11,Mobitz type 2 second-degree AV block
+12,Myocardial infarction
+13,Normal ECG
+14,P wave abnormality
+15,Prolonged PR interval
+16,Q waves present
+17,QRS changes in anteroseptal leads
+18,QTc prolongation
+19,Reversed R wave progression
+20,Right ventricular hypertrophy
+21,S1 S2 S3 type QRS pattern
+22,ST Depression
+23,ST Elevation
+24,ST(-T) change
+25,Short PR interval
+26,Significant repolarization change
+27,T-wave abnormality
+28,TU fusion
+29,Voltage criteria (QRS) for left ventricular hypertrophy
+30,Wolff-Parkinson type A
+31,Wolff-Parkinson type B
+32,Wolff-Parkinson-White syndrome
+33,aberrant supraventricular complexes
+34,aberrant ventricular complex
+35,abnormal R wave progression
+36,abnormal ventricular conduction pathways
+37,above the normal range of p duration
+38,above the normal range of pr interval
+39,above the normal range of qrs duration
+40,above the normal range of qt corrected
+41,above the normal range of qt interval
+42,above the normal range of rr interval
+43,accelerated idioventricular rhythm
+44,accelerated junctional rhythm
+45,any diagnostic symptoms
+46,any form-related symptoms
+47,any kind of abnormal symptoms
+48,any rhythm-related symptoms
+49,atrial arrhythmia
+50,atrial bigeminy
+51,atrial couplet
+52,atrial fibrillation
+53,atrial flutter
+54,atrial tachycardia
+55,atypical left bundle branch block
+56,atypical right bundle branch block
+57,baseline wander
+58,below the normal range of pr interval
+59,below the normal range of qrs duration
+60,below the normal range of qt corrected
+61,below the normal range of qt interval
+62,below the normal range of rr interval
+63,bi-atrial overload/enlargement
+64,complete left bundle branch block
+65,complete right bundle branch block
+66,conduction disturbance
+67,dextrocardia
+68,dual chamber electronic pacing
+69,early R wave transition
+70,early repolarization
+71,early stage of myocardial infarction
+72,ectopic atrial bradycardia
+73,ectopic atrial rhythm
+74,ectopic atrial tachycardia
+75,electronic atrial pacing
+76,extreme axis deviation
+77,extreme tachycardia
+78,first degree AV block
+79,fusion complexes
+80,high P-voltages
+81,high QRS voltage
+82,high amplitude T-waves
+83,high grade AV block
+84,hypertrophy
+85,idioventricular rhythm
+86,incomplete left bundle branch block
+87,incomplete right bundle branch block
+88,intermittent second degree AV block
+89,intraventricular conduction disturbance
+90,inverted T-waves
+91,ischemic ST-T changes
+92,junctional bradycardia
+93,junctional rhythm
+94,junctional tachycardia
+95,late R wave transition
+96,left anterior fascicular block
+97,left atrial overload/enlargement
+98,left axis deviation
+99,left posterior fascicular block
+100,long QT interval
+101,low QRS voltage
+102,low R
+103,middle stage of myocardial infarction
+104,multifocal premature ventricular complexes
+105,myocardial infarction
+106,non-diagnostic T abnormalities
+107,non-specific ST changes
+108,non-specific ST depression
+109,non-specific T-wave changes
+110,non-specific t abnormality
+111,non-sustained ventricular tachycardia
+112,normal heart axis
+113,notched P wave
+114,old stage of myocardial infarction
+115,pacemaker activity
+116,pacemaker rhythm
+117,paired ventricular premature complexes
+118,paroxysmal idioventricular rhythm
+119,poor R wave progression
+120,premature atrial complexes
+121,premature ventricular complexes
+122,premature ventricular interpolated complexes
+123,prolonged QRS duration
+124,rSr' type in V1 or V2
+125,rapid ventricular response
+126,regular rhythm
+127,repolarization abnormality
+128,right atrial overload/enlargement
+129,right axis deviation
+130,right ventricular conduction delay
+131,second degree AV block
+132,second-degree SA block type II
+133,short QT interval
+134,short QTc
+135,sinus arrhythmia
+136,sinus bradycardia
+137,sinus pause
+138,sinus rhythm
+139,sinus tachycardia
+140,slow ventricular response
+141,supraventricular bigeminy BIGU bigeminal pattern
+142,supraventricular extrasystoles
+143,supraventricular premature complex
+144,supraventricular rhythm
+145,supraventricular tachycardia
+146,tall R wave in V1 or V2
+147,tall R wave in V5 or V6
+148,third degree AV block
+149,unclassified aberrantly conducted complexes
+150,uncontrolled ventricular response
+151,ventricular bigeminy
+152,ventricular couplet
+153,ventricular escape rhythm
+154,ventricular trigeminy
+155,ventricular-paced complexes or rhythm
+156,wandering pacemaker
+157,wide QRS tachycardia
+158,within the normal range of p duration
+159,within the normal range of pr interval
+160,within the normal range of qrs duration
+161,within the normal range of qt corrected
+162,within the normal range of qt interval
+163,within the normal range of rr interval

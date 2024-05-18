@@ -342,15 +342,19 @@ For detailed implementations, please refer to [here](https://github.com/Jwoo5/fa
     $ python llm_modeling/llm_modeling.py \
         +openai_model=$model_name \
         +openai_api_key=$api_key \
+        +ptbxl_or_mimic_iv=ptbxl \
         common_eval.path=/path/to/checkpoint.pt \
         task.data=/path/to/output \
         dataset.valid_subset=test_sampled \
         --config-dir llm_modeling/config \
         --config-name infer_llm
     ```
+    \* `ptbxl_or_mimic_iv` should be set to one of `"ptbxl"` (for PTB-XL ECG-QA) or `"mimic-iv-ecg"` (for MIMIC-IV ECG-QA) according to your desired dataset to be processed.  
     Note that you need to pass the path to the upper bound model checkpoint through `common_eval.path`.  
+    * **Make sure that the class indices specified in `llm_modeling/metadata/$ptbxl_or_mimic_iv/grounding_class.csv` are consistent with the upperbound model. You can check the file `grounding_class.csv` genereated when you run preprocessing scripts for the upperbound experiments.**
+
     You also need to pass OpenAI's API key ($api_key) to load the OpenAI's GPT model.  
-    $model_name should be set to one of [`gpt-4`, `gpt-3.5-turbo`, `text-davinci-003`].  
+    $model_name should be consistent with OpenAI API Models (e.g., `gpt-4-turbo`, `gpt-3.5-turbo`).
 
 # Contact
 If you have any questions or suggestions, feel free to contact me!

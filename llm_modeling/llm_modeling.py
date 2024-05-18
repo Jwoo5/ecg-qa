@@ -4,6 +4,7 @@ import os
 import re
 import pprint
 import time
+import pandas as pd
 
 import wandb
 import openai
@@ -109,16 +110,28 @@ def main(cfg: DictConfig, override_args=None):
         
         return sample
 
-    import pandas as pd
-    grounding_classes = pd.read_csv(os.path.join("..", "..", "..", os.path.dirname(__file__), "grounding_classes.csv"))
+
+    assert cfg.ptbxl_or_mimic_iv in ["ptbxl", "mimic-iv-ecg", "mimic-iv"]
+    if cfg.ptbxl_or_mimic_iv == "mimic-iv":
+        cfg.ptbxl_or_mimic_iv = "mimic-iv-ecg"
+    grounding_classes = pd.read_csv(os.path.join(os.path.dirname(__file__), "metadata", cfg.ptbxl_or_mimic_iv, "grounding_class.csv"))
     grounding_classes = dict(grounding_classes["class"])
-    qa_classes = pd.read_csv(os.path.join("..", "..", "..", os.path.dirname(__file__), "qa_classes.csv"))
+    qa_classes = pd.read_csv(os.path.join(os.path.dirname(__file__), "metadata", cfg.ptbxl_or_mimic_iv, "qa_class.csv"))
     qa_classes = dict(qa_classes["class"])
+
     leads = [
         "lead I", "lead II", "lead III", "lead aVR", "lead aVL", "lead aVF",
         "lead V1", "lead V2", "lead V3", "lead V4", "lead V5", "lead V6"
     ]
-    lead_pattern = r"(lead (I|II|III|aVR|aVL|aVF|V1|V2|V3|V4|V5|V6))|((limb|chest) leads)"
+    lead_pattern = (
+        r"(lead (III|II|I|aVR|aVL|aVF|V1|V2|V3|V4|V5|V6))|"
+        r"( (limb|chest|anterior|inferior|septal|lateral|posterior|frontal|horizontal|diffuse) leads)"
+    )
+    if cfg.ptbxl_or_mimic_iv == "ptbxl":
+        lead_class_indices = list(range(66, 78))
+    else:
+        lead_class_indices = list(range(126, 138))
+
 
     openai.api_key = cfg.openai_api_key
     if hasattr(cfg, "openai_organization"):
@@ -205,7 +218,8 @@ def main(cfg: DictConfig, override_args=None):
                     
                     prompt = "These are the interpretations of each ECG along with their scores. "
                     prompt += "Higher score means more certainty about the interpretation.\n\n"
-                    if sample["valid_classes"][i].tolist() == list(range(66, 78)):
+                    # questions that should answer specific leads, e.g., "What leads ...?"
+                    if sample["valid_classes"][i].tolist() == lead_class_indices:
                         for j in range(12):
                             prompt += f"Interpretation of the ECG in {leads[j]}:\n"
                             if f"{sample['ecg_id'][i][0]}_{j}" in examplar_buffers:
@@ -224,17 +238,39 @@ def main(cfg: DictConfig, override_args=None):
                                 statements += "\n\n"
                                 examplar_buffers[f"{sample['ecg_id'][i][0]}_{j}"] = statements
                                 prompt += statements
-                    elif (searched := re.search(lead_pattern, sample["question"][i])) is not None:
-                        searched = searched.group()
+                    elif (
+                        # questions asking like "Does this ECG show symptoms of ... in ... leads?"
+                        (searched := re.search(lead_pattern, sample["question"][i])) is not None
+                        # exclude some edge cases where the attribute has "in ... leads" in its name
+                        and not "myocardial infarction in" + searched.group() + " leads" in sample["question"][i].lower()
+                        and not "ischemic st-t changes in" + searched.group() + " leads" in sample["question"][i].lower()
+                        and not "ischemic in" + searched.group() + " leads" in sample["question"][i].lower()
+                        and not "subendocardial injury in" + searched.group() + " leads" in sample["question"][i].lower()
+                    ):
+                        searched = searched.group().strip() # removing white space
+                        lead_name = searched
                         if searched == "limb leads":
                             lead = [0, 1, 2, 3, 4, 5]
-                            lead_name = searched
                         elif searched == "chest leads":
                             lead = [6, 7, 8, 9, 10, 11]
-                            lead_name = searched
+                        elif searched == "anterior leads":
+                            lead = [8, 9]
+                        elif searched == "inferior leads":
+                            lead = [1, 2, 5]
+                        elif searched == "septal leads":
+                            lead = [6, 7]
+                        elif searched == "lateral leads":
+                            lead = [0, 4, 10, 11]
+                        elif searched == "posterior leads":
+                            lead = [9, 10, 11]
+                        elif searched == "frontal leads":
+                            lead = [0, 1, 2, 3, 4, 5]
+                        elif searched == "horizontal leads":
+                            lead = [6, 7, 8, 9, 10, 11]
+                        elif searched == "diffuse leads":
+                            lead = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
                         else:
                             lead = leads.index(searched)
-                            lead_name = searched
                             searched = lead
 
                         prompt += f"Interpretation of the ECG in {lead_name}:\n"
@@ -255,9 +291,10 @@ def main(cfg: DictConfig, override_args=None):
                             examplar_buffers[f"{sample['ecg_id'][i][0]}_{searched}"] = statements
                             prompt += statements
                     else:
-                        # single
+                        # single questions
                         if len(sample["ecg_id"][i]) == 1:
                             prompt += "Interpretation of the ECG:\n"
+                        # comparison questions
                         else:
                             if "first ECG" in sample["question"][i]:
                                 prompt += "Interpretation of the first ECG:\n"
@@ -316,29 +353,20 @@ def main(cfg: DictConfig, override_args=None):
 
                     while True:
                         try:
-                            if cfg.openai_model in ["gpt-4", "gpt-4-0314"]:
-                                completion = openai.ChatCompletion.create(
-                                    model="gpt-4-0314",
-                                    messages=[{"role": "user", "content": prompt}],
-                                    temperature=0,
-                                )
-                                llm_answer = completion["choices"][0]["message"]["content"].lower()
-                            elif cfg.openai_model in ["gpt-3.5-turbo", "gpt-3.5-turbo-0301"]:
-                                completion = openai.ChatCompletion.create(
-                                    model="gpt-3.5-turbo-0301",
-                                    messages=[{"role": "user", "content": prompt}],
-                                    temperature=0,
-                                )
-                                llm_answer = completion["choices"][0]["message"]["content"].lower()
-                            elif cfg.openai_model == "text-davinci-003":
+                            if "instruct" in cfg.openai_model:
                                 completion = openai.Completion.create(
-                                    model="text-davinci-003",
+                                    model=cfg.openai_model,
                                     prompt=prompt,
                                     temperature=0,
                                 )
                                 llm_answer = completion["choices"][0].text.strip().lower()
                             else:
-                                raise ValueError(f"Invalid model name: {cfg.openai_model}")
+                                completion = openai.ChatCompletion.create(
+                                    model=cfg.openai_model,
+                                    messages=[{"role": "user", "content": prompt}],
+                                    temperature=0,
+                                )
+                                llm_answer = completion["choices"][0]["message"]["content"].lower()
                             break
                         except openai.error.RateLimitError as e:
                             time.sleep(1)
@@ -349,7 +377,7 @@ def main(cfg: DictConfig, override_args=None):
 
                     # postprocess
                     options_pattern = "("
-                    for c in sample["classes"][i]:
+                    for c in sample["valid_classes"][i]:
                         name = qa_classes[c.item()]
                         if "(" in name:
                             name = name[:name.find("(")] + "\\" + name[name.find("("):]
@@ -360,7 +388,6 @@ def main(cfg: DictConfig, override_args=None):
                     llm_answer = set([x.group() for x in re.finditer(options_pattern, llm_answer)])
 
                     with open(os.path.join(subset, str(num) + ".txt"), "w") as f:
-                        print(f"ECG IDs: {sample['ecg_id'][i][0]}, {sample['ecg_id'][i][1]}\n", file=f)
                         print(prompt, file=f)
                         print("Answer: ", end="", file=f)
                         print(llm_answer, file=f)
