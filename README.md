@@ -363,16 +363,12 @@ If you have any questions or suggestions, feel free to contact me!
 # Citation
 Please cite as:
 ```
-@inproceedings{NEURIPS2023_d0b67349,
- author = {Oh, Jungwoo and Lee, Gyubok and Bae, Seongsu and Kwon, Joon-myoung and Choi, Edward},
- booktitle = {Advances in Neural Information Processing Systems},
- editor = {A. Oh and T. Neumann and A. Globerson and K. Saenko and M. Hardt and S. Levine},
- pages = {66277--66288},
- publisher = {Curran Associates, Inc.},
- title = {ECG-QA: A Comprehensive Question Answering Dataset Combined With Electrocardiogram},
- url = {https://proceedings.neurips.cc/paper_files/paper/2023/file/d0b67349dd16b83b2cf6167fb4e2be50-Paper-Datasets_and_Benchmarks.pdf},
- volume = {36},
- year = {2023}
+@article{oh2023ecg,
+  title={Ecg-qa: A comprehensive question answering dataset combined with electrocardiogram},
+  author={Oh, Jungwoo and Lee, Gyubok and Bae, Seongsu and Kwon, Joon-myoung and Choi, Edward},
+  journal={Advances in Neural Information Processing Systems},
+  volume={36},
+  pages={66277--66288},
+  year={2023}
 }
-
 ```
